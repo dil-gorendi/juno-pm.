@@ -1,5 +1,7 @@
 # juno-pm: rules for AI agents
 
+Read [`HANDOVER.md`](HANDOVER.md) first. It gives the status, the decisions, and the next tasks. Update it at the end of each session.
+
 ## Language
 
 Each AI tool that works in this repo must obey these rules. Write all text in this repo in ASD-STE100 Simplified Technical English (STE). This rule applies to:

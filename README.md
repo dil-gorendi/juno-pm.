@@ -36,6 +36,7 @@ The file [`AGENTS.md`](AGENTS.md) gives the rules for each AI tool that works in
 juno-pm/
 ├── README.md                    # this overview
 ├── AGENTS.md                    # rules for all AI tools (STE)
+├── HANDOVER.md                  # status, decisions, and next tasks
 ├── final-presentation.html      # M6: final presentation
 ├── 01-prompting/
 │   └── skill-file.md            # M1: Juno's skill file (Role/Task/Constraints/Format)
