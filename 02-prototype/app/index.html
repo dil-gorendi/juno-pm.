@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juno · Risk radar</title>
+<link rel="icon" href="data:,">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.45 Arial, Helvetica, sans-serif; color: #1d1c1d; background: #f2f2f2; }
+  button, textarea, code { font: inherit; }
+  .top { padding: 12px 20px; background: #fff; border-bottom: 1px solid #ccc; }
+  .top h1 { margin: 0; font-size: 18px; }
+  main { display: flex; gap: 16px; padding: 16px; align-items: flex-start; }
+  .panel { flex: 1 1 0; min-width: 0; background: #fff; border: 1px solid #ccc; border-radius: 4px; }
+  .threads { padding: 16px; }
+  .threads label { display: block; font-weight: bold; margin-bottom: 6px; }
+  textarea { width: 100%; height: 420px; padding: 8px; font-size: 14px; border: 1px solid #999; border-radius: 3px; resize: vertical; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  button { padding: 6px 12px; border: 1px solid #666; border-radius: 3px; background: #fff; color: #1d1c1d; cursor: pointer; }
+  button.run { background: #1d1c1d; border-color: #1d1c1d; color: #fff; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  .channel { padding: 10px 16px; border-bottom: 1px solid #ccc; font-weight: bold; }
+  .msg { display: flex; gap: 10px; padding: 14px 16px; }
+  .avatar { flex: none; width: 36px; height: 36px; border-radius: 4px; background: #4a154b; color: #fff; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+  .msg-body { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+  .msg-head { margin-bottom: 4px; }
+  .badge { font-size: 10px; padding: 1px 4px; border-radius: 3px; background: #e6e6e6; color: #555; vertical-align: 1px; }
+  .time { font-size: 12px; color: #777; }
+  .card h3, .card h4 { margin: 0 0 8px; font-size: 16px; }
+  .card h4 { font-size: 15px; }
+  .card p { margin: 0 0 8px; }
+  .card ol { margin: 0 0 8px; padding-left: 22px; }
+  .card ul { margin: 2px 0 6px; padding-left: 18px; }
+  .card li { margin-bottom: 2px; }
+  .card hr { border: 0; border-top: 1px solid #ddd; margin: 8px 0; }
+  .card code { background: #f2f2f2; padding: 0 3px; border-radius: 3px; }
+  .tag { display: inline-block; padding: 0 5px; border-radius: 3px; background: #c62828; color: #fff; font-size: 11px; font-weight: bold; line-height: 1.6; vertical-align: 1px; }
+  a.thread { color: #1264a3; }
+  .note { margin: 8px 0 0; font-size: 12px; color: #666; }
+  @media (max-width: 800px) { main { flex-direction: column; } .panel { width: 100%; } textarea { height: 260px; } }
+</style>
+</head>
+<body>
+<header class="top"><h1>Juno · Risk radar</h1></header>
+<main>
+  <section class="panel threads">
+    <label for="threads">Open threads</label>
+    <textarea id="threads" spellcheck="false"></textarea>
+    <div class="buttons">
+      <button type="button" id="load-example">Load example</button>
+      <button type="button" id="load-no-date">Load example without today's date</button>
+      <button type="button" id="run" class="run">Run radar</button>
+    </div>
+  </section>
+  <section class="panel" aria-label="Slack channel #pm-monday">
+    <div class="channel">#pm-monday</div>
+    <div class="msg">
+      <div class="avatar" aria-hidden="true">J</div>
+      <div class="msg-body">
+        <div class="msg-head"><strong>Juno</strong> <span class="badge">APP</span> <span class="time" id="time"></span></div>
+        <div class="card" id="card" aria-live="polite"></div>
+        <p class="note" id="note" hidden></p>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+const THREAD_LINES = [
+  'RS-2001 | SSO login loop | opened 1 Oct | last reply 9 Oct | owner: none | accounts: Kestrel Logistics, Bluepeak Clinics | quote: "If this is not fixed by renewal, we will not renew." | committed: 23 Oct',
+  'RS-2004 | Audit export timeout | opened 5 Oct | last reply 16 Oct | owner: Priya | accounts: 3 | quote: none | committed: 21 Oct',
+  'RS-2007 | Slow dashboard | opened 8 Oct | last reply 12 Oct | owner: Tom | accounts: 1 | quote: "Annoying, but we can work with it." | committed: none',
+  'RS-2010 | Typo in invite email | opened 14 Oct | last reply 16 Oct | owner: Tom | accounts: 1 | quote: none | committed: none',
+  'RS-2012 | Webhook retries fail | opened 6 Oct | last reply: missing | owner: none | accounts: 2 | quote: none | committed: none',
+];
+const EXAMPLE_NO_DATE = THREAD_LINES.join('\n');
+const EXAMPLE = 'Today: Monday 19 October 2026\n' + EXAMPLE_NO_DATE;
+
+// Stored results for the two examples. The app shows them when it cannot call the AI model.
+// Juno wrote these results on 15 October 2026 (us.anthropic.claude-opus-5-5, effort medium).
+const STORED_RESULT = "# Risk radar · Monday 19 October 2026\n\n## Top risks\n\n1. **RS-2001 · SSO login loop** (link not in inputs)\n   - **Why:** Silent (last reply 9 Oct). No owner (owner: none). Date at risk (committed 23 Oct). Spread (2 accounts). Escalation: \"we will not renew.\"\n   - **Next step:** Ask the team lead for an owner before 23 Oct.\n\n2. **RS-2004 · Audit export timeout** (link not in inputs)\n   - **Why:** Date at risk (committed 21 Oct). Spread (accounts: 3).\n   - **Next step:** Ask Priya if the fix will be ready by 21 Oct.\n\n3. **RS-2012 · Webhook retries fail** (link not in inputs)\n   - **Why:** No owner (owner: none). Spread (accounts: 2). The Silent signal is unknown because the last reply is missing.\n   - **Next step:** Check the thread for the date of the last reply.\n\n## Data gaps\n\nRS-2012: last reply is missing. All threads: link is missing.";
+const STORED_RESULT_NO_DATE = "**Risk radar: cannot rank**\n\nThe inputs do not give the date of today. Without this date, I cannot find the Silent and Date at risk signals. Thus, I do not rank the threads.\n\n**Fields that I must have:**\n\n- **Date of today:** The inputs do not give it.\n- **Link:** No thread has a link.\n- **Last reply:** RS-2012 does not have a last reply date.\n\nSend the date of today and the missing fields. Then I will make the card.";
+
+const SIGNALS = ['Date at risk', 'No owner', 'Escalation', 'Silent', 'Spread'];
+const THREAD_ID = /\b[A-Z][A-Z0-9]*-\d+\b/g;
+// Signal names match in all letter cases. A thread ID becomes a link only if the text box has it.
+const TOKEN = new RegExp('\\b([a-z][a-z0-9]*-\\d+)\\b|\\b(' + SIGNALS.join('|') + ')\\b', 'gi');
+const NO_BACKEND = 'This copy of the app cannot call the AI model.';
+let threadIds = new Set();
+const INLINE = /\*\*(.+?)\*\*|\*(\S(?:.*?\S)?)\*|`([^`]+)`|\[([^\]]+)\]\([^)]*\)/g;
+
+const textBox = document.getElementById('threads');
+const card = document.getElementById('card');
+const note = document.getElementById('note');
+const runButton = document.getElementById('run');
+
+function normalize(text) {
+  return text.split('\n').map((line) => line.trim().replace(/\s+/g, ' ')).filter(Boolean).join('\n');
+}
+
+function storedResultFor(text) {
+  const input = normalize(text);
+  if (input === normalize(EXAMPLE)) return STORED_RESULT;
+  if (input === normalize(EXAMPLE_NO_DATE)) return STORED_RESULT_NO_DATE;
+  return null;
+}
+
+// Make thread IDs into links and signal names into red tags.
+function decorate(text, parent) {
+  let last = 0;
+  for (const match of text.matchAll(TOKEN)) {
+    parent.append(text.slice(last, match.index));
+    if (match[1] && threadIds.has(match[1])) {
+      const link = document.createElement('a');
+      link.href = '#';
+      link.className = 'thread';
+      link.title = 'Demo link. It does not open a page.';
+      link.textContent = match[1];
+      parent.append(link);
+    } else if (match[2]) {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = match[2];
+      parent.append(tag);
+    } else {
+      parent.append(match[0]);
+    }
+    last = match.index + match[0].length;
+  }
+  parent.append(text.slice(last));
+}
+
+// Write the inline Markdown (bold, italic, code, links) as DOM nodes. Links show only their text.
+function inline(text, parent) {
+  let last = 0;
+  for (const match of text.matchAll(INLINE)) {
+    decorate(text.slice(last, match.index), parent);
+    if (match[1] !== undefined) {
+      const strong = document.createElement('strong');
+      inline(match[1], strong);
+      parent.append(strong);
+    } else if (match[2] !== undefined) {
+      const em = document.createElement('em');
+      inline(match[2], em);
+      parent.append(em);
+    } else if (match[3] !== undefined) {
+      const code = document.createElement('code');
+      decorate(match[3], code);
+      parent.append(code);
+    } else {
+      decorate(match[4], parent);
+    }
+    last = match.index + match[0].length;
+  }
+  decorate(text.slice(last), parent);
+  return parent;
+}
+
+function el(name, text) {
+  const node = document.createElement(name);
+  if (text !== undefined) inline(text, node);
+  return node;
+}
+
+// Write a small set of Markdown blocks: headings, lists, nested bullets, rules, and paragraphs.
+function renderMarkdown(markdown) {
+  const out = document.createDocumentFragment();
+  let list = null;
+  let item = null;
+  let subList = null;
+  let paragraph = null;
+  const closeList = () => { list = null; item = null; subList = null; };
+
+  for (const raw of markdown.replace(/\r/g, '').split('\n')) {
+    const line = raw.replace(/\s+$/, '');
+    let m;
+    if (!line.trim()) { paragraph = null; continue; }
+    if ((m = line.match(/^(#{1,6})\s+(.*)$/))) {
+      closeList(); paragraph = null;
+      out.append(el(m[1].length === 1 ? 'h3' : 'h4', m[2]));
+    } else if (/^\s*([-*_])(\s*\1){2,}\s*$/.test(line)) {
+      closeList(); paragraph = null;
+      out.append(document.createElement('hr'));
+    } else if ((m = line.match(/^(\d+)[.)]\s+(.*)$/))) {
+      paragraph = null;
+      if (!list || list.tagName !== 'OL') {
+        list = document.createElement('ol');
+        list.start = Number(m[1]);
+        out.append(list);
+      }
+      item = el('li', m[2]);
+      subList = null;
+      list.append(item);
+    } else if ((m = line.match(/^(\s+)[-*]\s+(.*)$/)) && item) {
+      if (!subList) { subList = document.createElement('ul'); item.append(subList); }
+      subList.append(el('li', m[2]));
+    } else if ((m = line.match(/^[-*]\s+(.*)$/))) {
+      paragraph = null;
+      if (!list || list.tagName !== 'UL') {
+        list = document.createElement('ul');
+        out.append(list);
+      }
+      item = el('li', m[1]);
+      subList = null;
+      list.append(item);
+    } else if (/^\s+/.test(line) && item) {
+      const target = subList ? subList.lastElementChild : item;
+      target.append(document.createElement('br'));
+      inline(line.trim(), target);
+    } else {
+      closeList();
+      if (paragraph) {
+        paragraph.append(document.createElement('br'));
+        inline(line, paragraph);
+      } else {
+        paragraph = el('p', line);
+        out.append(paragraph);
+      }
+    }
+  }
+  return out;
+}
+
+function showMessage(markdown, noteText) {
+  const content = renderMarkdown(markdown);
+  if (!content.textContent.trim()) {
+    content.append(el('p', 'Juno did not write a card.'));
+  }
+  card.replaceChildren(content);
+  note.hidden = !noteText;
+  note.textContent = noteText || '';
+  document.getElementById('time').textContent =
+    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// Send the threads to the local server. On a failure, give the reason as the error message.
+async function callModel(threads) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 120000);
+  try {
+    let response;
+    try {
+      response = await fetch('api/radar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ threads }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      throw new Error(error.name === 'AbortError' ? 'The AI model did not answer in 2 minutes.' : NO_BACKEND);
+    }
+    // Static hosting (for example GitHub Pages) has no api/radar and gives one of these codes.
+    if ([404, 405, 501].includes(response.status)) throw new Error(NO_BACKEND);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error('The AI model call failed. Reason: ' + (data.error || 'status ' + response.status) + '.');
+    }
+    if (typeof data.text !== 'string') throw new Error('The AI model call gave no card.');
+    return data;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function setBusy(busy) {
+  for (const button of document.querySelectorAll('.buttons button')) button.disabled = busy;
+  textBox.readOnly = busy;
+}
+
+async function runRadar() {
+  const threads = textBox.value;
+  if (!threads.trim()) {
+    showMessage('The text box is empty. Paste the open threads, or click **Load example**.');
+    return;
+  }
+  threadIds = new Set(threads.match(THREAD_ID) || []);
+  setBusy(true);
+  showMessage('Juno reads the open threads. Wait for the card.');
+  try {
+    const result = await callModel(threads);
+    if (result.text) {
+      showMessage(result.text, 'Live result from the AI model (' + result.model + ').');
+    } else {
+      showMessage('Juno did not write a card. The AI model stopped with the reason "' + (result.stopReason || 'unknown') + '".');
+    }
+  } catch (error) {
+    const stored = storedResultFor(threads);
+    if (stored) {
+      showMessage(stored, 'Stored result. ' + error.message);
+    } else {
+      showMessage(error.message + ' Only the two examples have a stored result. ' +
+        'Click **Load example** or **Load example without today\'s date**. Then click **Run radar**.');
+    }
+  } finally {
+    setBusy(false);
+  }
+}
+
+// A thread link does not open a page, also with a middle click.
+for (const type of ['click', 'auxclick']) {
+  card.addEventListener(type, (event) => {
+    if (event.target.closest('a.thread')) event.preventDefault();
+  });
+}
+document.getElementById('load-example').addEventListener('click', () => { textBox.value = EXAMPLE; });
+document.getElementById('load-no-date').addEventListener('click', () => { textBox.value = EXAMPLE_NO_DATE; });
+runButton.addEventListener('click', runRadar);
+showMessage('Paste the open threads in the text box, or click **Load example**. Then click **Run radar**.');
+</script>
+</body>
+</html>

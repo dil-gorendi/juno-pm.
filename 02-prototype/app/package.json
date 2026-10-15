@@ -1,0 +1,13 @@
+{
+  "name": "juno-risk-radar",
+  "version": "1.0.0",
+  "description": "Juno · Risk radar. A one-screen prototype for the Monday risk card.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "^0.35.0"
+  }
+}

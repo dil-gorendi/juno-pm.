@@ -43,7 +43,8 @@ juno-pm/
 │   └── skill-file.md            # M1: Juno's skill file (Role/Task/Constraints/Format)
 ├── 02-prototype/
 │   ├── prototype.md             # M2: prototype link and debrief
-│   └── risk-radar-skill.md      # M2: Juno's skill file for the risk radar
+│   ├── risk-radar-skill.md      # M2: Juno's skill file for the risk radar
+│   └── app/                     # M2: the prototype app (one page and a local server)
 ├── 03-harness-prd/
 │   └── prd.md                   # M3: AI PRD for the six harness surfaces
 ├── 04-agentic-workflows/
