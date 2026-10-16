@@ -173,7 +173,8 @@ const THREAD_LINES = [
 const EXAMPLE_NO_DATE = THREAD_LINES.join('\n');
 const EXAMPLE = 'Today: Monday 19 October 2026\n' + EXAMPLE_NO_DATE;
 
-// Stored results for the two examples. The app shows them when it cannot call the AI model.
+// Stored results for the two examples and the 100-thread demo. The app shows them when it cannot call the AI model.
+// All 3 stored cards come from the first skill file (commit 66f1394). Make them again after a change to the skill file.
 // Juno wrote these results on 15 October 2026 (us.anthropic.claude-opus-5-5, effort medium).
 const STORED_RESULT = "# Risk radar · Monday 19 October 2026\n\n## Top risks\n\n1. **RS-2001 · SSO login loop** (link not in inputs)\n   - **Why:** Silent (last reply 9 Oct). No owner (owner: none). Date at risk (committed 23 Oct). Spread (2 accounts). Escalation: \"we will not renew.\"\n   - **Next step:** Ask the team lead for an owner before 23 Oct.\n\n2. **RS-2004 · Audit export timeout** (link not in inputs)\n   - **Why:** Date at risk (committed 21 Oct). Spread (accounts: 3).\n   - **Next step:** Ask Priya if the fix will be ready by 21 Oct.\n\n3. **RS-2012 · Webhook retries fail** (link not in inputs)\n   - **Why:** No owner (owner: none). Spread (accounts: 2). The Silent signal is unknown because the last reply is missing.\n   - **Next step:** Check the thread for the date of the last reply.\n\n## Data gaps\n\nRS-2012: last reply is missing. All threads: link is missing.";
 // Juno wrote the demo card on 15 October 2026 (same model). It agrees with section 2 of demo-answer-key.md.

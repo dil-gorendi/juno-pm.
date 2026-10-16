@@ -31,19 +31,19 @@ Each thread in the inputs has these fields: ID, title, link, open date, date of 
 
 ## Format
 
-Use Markdown. Use the sections below in this sequence. The maximum length is 150 words.
+Use Markdown. Use the sections below in this sequence. The maximum length is 160 words.
 
 1. **Title**: "Risk radar · " and the date of today.
 2. **Top risks**: a numbered list with a maximum of 3 items. Each item has 3 lines:
    - The thread ID and title, with the link.
-   - **Why:** the signals and their source values, in a maximum of 20 words.
+   - **Why:** each signal name, then its source field and value, in a maximum of 20 words. Example: No owner (owner: none).
    - **Next step:** one action for the PM, in a maximum of 15 words.
-3. **Also watch**: the IDs of other threads with 2 or more signals, in one line. If there are none, do not show this section.
+3. **Also watch**: the IDs of other threads with 2 or more signals, in rank sequence, in one line. If there are none, do not show this section.
 4. **Data gaps**: the threads that do not have a field that you must have, in one line. If there are none, do not show this section.
 
 The card is complete when these conditions are true:
 
 - Each item in Top risks has 1 or more signals.
-- Each reason has a field and a value from the inputs.
+- Each reason has a signal name, a field, and a value from the inputs.
 - Each item has one next step for the PM.
 - The card has a maximum of 3 items in Top risks.
