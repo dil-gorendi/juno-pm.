@@ -1,0 +1,101 @@
+Today: Monday 19 October 2026
+RS-3001 | Wrong export columns | link: https://support.rocketship.example/RS-3001 | opened 30 Sep | last reply 15 Oct | owner: none | accounts: 1 | quote: none | committed: 2 Nov
+RS-3002 | CRM sync stops daily | link: https://support.rocketship.example/RS-3002 | opened 3 Sep | last reply 19 Oct | owner: Tomas | accounts: 1 | quote: none | committed: none
+RS-3003 | Old plan on billing page | link: https://support.rocketship.example/RS-3003 | opened 21 Sep | last reply 15 Oct | owner: Felix | accounts: Nettlebrook Homes | quote: none | committed: none
+RS-3004 | Guests see internal notes | link: https://support.rocketship.example/RS-3004 | opened 8 Oct | last reply 19 Oct | owner: Zara | accounts: 1 | quote: none | committed: none
+RS-3005 | Alert emails wrong time | link: https://support.rocketship.example/RS-3005 | opened 15 Sep | last reply 19 Oct | owner: Hana | accounts: 1 | quote: none | committed: none
+RS-3006 | Copy loses filters | link: https://support.rocketship.example/RS-3006 | opened 2 Oct | last reply 19 Oct | owner: Felix | accounts: 1 | quote: none | committed: none
+RS-3007 | Emails go to spam | link: https://support.rocketship.example/RS-3007 | opened 9 Sep | last reply 15 Oct | owner: Tomas | accounts: 1 | quote: none | committed: none
+RS-3008 | Slow report builder | link: https://support.rocketship.example/RS-3008 | opened 1 Oct | last reply 15 Oct | owner: Marco | accounts: Hollowfen Retail | quote: none | committed: 20 Oct
+RS-3009 | HR sync turns off users | link: https://support.rocketship.example/RS-3009 | opened 21 Sep | last reply 29 Sep | owner: Sara | accounts: 1 | quote: "Annoying, but we can work with it." | committed: none
+RS-3010 | Stale dashboard data | link: https://support.rocketship.example/RS-3010 | opened 14 Sep | last reply 19 Oct | owner: Mei | accounts: Quarrowe Software, Driftmoor Shipping | quote: none | committed: 30 Oct
+RS-3011 | Slow dashboard widgets | link: https://support.rocketship.example/RS-3011 | opened 30 Sep | last reply 19 Oct | owner: Felix | accounts: 1 | quote: none | committed: none
+RS-3012 | API docs sample fails | link: https://support.rocketship.example/RS-3012 | opened 16 Sep | last reply 15 Oct | owner: Omar | accounts: 1 | quote: none | committed: none
+RS-3013 | Shared report is empty | link: https://support.rocketship.example/RS-3013 | opened 10 Sep | last reply 15 Oct | owner: Felix | accounts: 1 | quote: "We will escalate to our board." | committed: none
+RS-3014 | Magic link expires early | link: https://support.rocketship.example/RS-3014 | opened 9 Sep | last reply 19 Oct | owner: Mei | accounts: 1 | quote: "If this continues, we will not renew." | committed: 29 Oct
+RS-3015 | Late two-factor codes | link: https://support.rocketship.example/RS-3015 | opened 5 Oct | last reply 15 Oct | owner: none | accounts: Hearthmoor Care | quote: none | committed: none
+RS-3016 | Photo upload fails | link: https://support.rocketship.example/RS-3016 | opened 2 Sep | last reply 19 Oct | owner: Nadia | accounts: 1 | quote: none | committed: none
+RS-3017 | Wrong usage warning | link: https://support.rocketship.example/RS-3017 | opened 23 Sep | last reply 16 Oct | owner: Jonas | accounts: Oakhallow Telecom, Driftmoor Shipping | quote: none | committed: none
+RS-3018 | Wrong upgrade amount | link: https://support.rocketship.example/RS-3018 | opened 23 Sep | last reply 5 Oct | owner: Zara | accounts: 1 | quote: none | committed: none
+RS-3019 | Pinned dashboards vanish | link: https://support.rocketship.example/RS-3019 | opened 1 Sep | last reply 16 Oct | owner: Priya | accounts: Oakhallow Telecom, Elmbrae Finance | quote: none | committed: none
+RS-3020 | API 500 on big requests | link: https://support.rocketship.example/RS-3020 | opened 7 Oct | last reply 19 Oct | owner: Marco | accounts: 1 | quote: none | committed: none
+RS-3021 | Negative chart values | link: https://support.rocketship.example/RS-3021 | opened 11 Sep | last reply 19 Oct | owner: Nadia | accounts: 1 | quote: "Thanks for the quick reply." | committed: none
+RS-3022 | Wrong report time zone | link: https://support.rocketship.example/RS-3022 | opened 1 Oct | last reply 15 Oct | owner: Hana | accounts: 1 | quote: "Can you share the next step?" | committed: none
+RS-3023 | Contact import maps wrong | link: https://support.rocketship.example/RS-3023 | opened 10 Sep | last reply 15 Oct | owner: Ravi | accounts: 1 | quote: "One more outage and we will cancel." | committed: none
+RS-3024 | Bulk import fails | link: https://support.rocketship.example/RS-3024 | opened 7 Oct | last reply 15 Oct | owner: Jonas | accounts: 1 | quote: none | committed: none
+RS-3025 | API v3 breaks clients | link: https://support.rocketship.example/RS-3025 | opened 25 Sep | last reply 15 Oct | owner: Diego | accounts: Ivoryhelm Security, Hollowfen Retail | quote: none | committed: none
+RS-3026 | CSV export cuts off rows | link: https://support.rocketship.example/RS-3026 | opened 5 Oct | last reply 19 Oct | owner: none | accounts: 3 | quote: "We will not renew if exports stay broken." | committed: none
+RS-3027 | Export link expires | link: https://support.rocketship.example/RS-3027 | opened 24 Sep | last reply 15 Oct | owner: Ben | accounts: 1 | quote: none | committed: none
+RS-3028 | Wrong seat count | link: https://support.rocketship.example/RS-3028 | opened 10 Sep | last reply 19 Oct | owner: Mei | accounts: 1 | quote: "Thanks, the workaround helps." | committed: none
+RS-3029 | Card update fails | link: https://support.rocketship.example/RS-3029 | opened 11 Sep | last reply 16 Sep | owner: Aisha | accounts: Larchwyn Builders | quote: none | committed: none
+RS-3030 | Usage report skips a team | link: https://support.rocketship.example/RS-3030 | opened 7 Oct | last reply 15 Oct | owner: Elena | accounts: Elmbrae Finance | quote: none | committed: none
+RS-3031 | Viewers can edit | link: https://support.rocketship.example/RS-3031 | opened 10 Sep | last reply 19 Oct | owner: Marco | accounts: 1 | quote: "We will not renew without a fix." | committed: none
+RS-3032 | Wrong chat channel | link: https://support.rocketship.example/RS-3032 | opened 1 Sep | last reply 19 Oct | owner: Hana | accounts: Brackenlow Hotels | quote: none | committed: 13 Oct
+RS-3033 | Custom role resets | link: https://support.rocketship.example/RS-3033 | opened 29 Sep | last reply 15 Oct | owner: Elena | accounts: 1 | quote: "We found a workaround." | committed: none
+RS-3034 | Login page times out | link: https://support.rocketship.example/RS-3034 | opened 28 Sep | last reply 19 Oct | owner: Zara | accounts: 1 | quote: "Please confirm the root cause." | committed: none
+RS-3035 | Admin cannot remove users | link: https://support.rocketship.example/RS-3035 | opened 10 Sep | last reply 15 Oct | owner: Zara | accounts: 1 | quote: none | committed: none
+RS-3036 | Report emails stopped | link: https://support.rocketship.example/RS-3036 | opened 11 Sep | last reply 15 Oct | owner: Lena | accounts: 1 | quote: none | committed: none
+RS-3037 | Webhook lacks user ID | link: https://support.rocketship.example/RS-3037 | opened 5 Oct | last reply: missing | owner: none | accounts: Oakhallow Telecom | quote: none | committed: none
+RS-3038 | App crashes on start | link: https://support.rocketship.example/RS-3038 | opened 3 Sep | last reply 17 Sep | owner: Mei | accounts: Brackenlow Hotels, Velloran Travel | quote: none | committed: none
+RS-3039 | Dead login button | link: https://support.rocketship.example/RS-3039 | opened 8 Oct | last reply 19 Oct | owner: Omar | accounts: Velloran Travel | quote: none | committed: none
+RS-3040 | API rate limit too low | link: https://support.rocketship.example/RS-3040 | opened 16 Sep | last reply 19 Oct | owner: none | accounts: Ivoryhelm Security | quote: none | committed: none
+RS-3041 | Late push notifications | link: https://support.rocketship.example/RS-3041 | opened 7 Oct | last reply 19 Oct | owner: none | accounts: 1 | quote: none | committed: none
+RS-3042 | Retention deletes early | link: https://support.rocketship.example/RS-3042 | opened 2 Sep | last reply 15 Oct | owner: Tomas | accounts: Brackenlow Hotels | quote: none | committed: none
+RS-3043 | Ticket sync drops files | link: https://support.rocketship.example/RS-3043 | opened 15 Sep | last reply 19 Oct | owner: Marco | accounts: 6 | quote: none | committed: none
+RS-3044 | API paging skips records | link: https://support.rocketship.example/RS-3044 | opened 8 Oct | last reply 15 Oct | owner: Omar | accounts: 1 | quote: none | committed: none
+RS-3045 | Double annual charge | link: https://support.rocketship.example/RS-3045 | opened 28 Sep | last reply 8 Oct | owner: none | accounts: 1 | quote: "We will escalate this to your CEO." | committed: 21 Oct
+RS-3046 | Empty audit log export | link: https://support.rocketship.example/RS-3046 | opened 8 Sep | last reply 19 Oct | owner: none | accounts: 1 | quote: "My team is not happy with this." | committed: none
+RS-3047 | Scheduled export fails | link: https://support.rocketship.example/RS-3047 | opened 8 Sep | last reply 15 Oct | owner: Nadia | accounts: 1 | quote: none | committed: none
+RS-3048 | API token expires early | link: https://support.rocketship.example/RS-3048 | opened 22 Sep | last reply 1 Oct | owner: none | accounts: 1 | quote: none | committed: none
+RS-3049 | Sessions end too fast | link: https://support.rocketship.example/RS-3049 | opened 2 Sep | last reply 1 Oct | owner: Ben | accounts: Wispwater Drinks | quote: none | committed: none
+RS-3050 | Role list will not load | link: https://support.rocketship.example/RS-3050 | opened 17 Sep | last reply 19 Oct | owner: Diego | accounts: 1 | quote: "We will cancel our contract." | committed: none
+RS-3051 | Large previews fail | link: https://support.rocketship.example/RS-3051 | opened 28 Sep | last reply 19 Oct | owner: Zara | accounts: 1 | quote: none | committed: 2 Oct
+RS-3052 | Slow permission updates | link: https://support.rocketship.example/RS-3052 | opened 6 Oct | last reply 15 Oct | owner: none | accounts: 1 | quote: "Please send us a new date." | committed: 22 Oct
+RS-3053 | No password reset email | link: https://support.rocketship.example/RS-3053 | opened 11 Sep | last reply 15 Oct | owner: Nadia | accounts: Wrenfield Pharma | quote: none | committed: none
+RS-3054 | Empty webhook log | link: https://support.rocketship.example/RS-3054 | opened 12 Oct | last reply 19 Oct | owner: Mei | accounts: 1 | quote: "We are frustrated. Please send an update." | committed: 20 Oct
+RS-3055 | Accounts stay locked | link: https://support.rocketship.example/RS-3055 | opened 7 Oct | last reply 19 Oct | owner: Hana | accounts: 1 | quote: none | committed: none
+RS-3056 | API date format wrong | link: https://support.rocketship.example/RS-3056 | opened 2 Sep | last reply 19 Oct | owner: Ines | accounts: Thistlewood Legal | quote: none | committed: none
+RS-3057 | Duplicate calendar events | link: https://support.rocketship.example/RS-3057 | opened 8 Oct | last reply: missing | owner: Kofi | accounts: 1 | quote: none | committed: none
+RS-3058 | API ignores status filter | link: https://support.rocketship.example/RS-3058 | opened 21 Sep | last reply 15 Oct | owner: Elena | accounts: Ambergill Dental | quote: none | committed: none
+RS-3059 | Leads cannot invite users | link: https://support.rocketship.example/RS-3059 | opened 25 Sep | last reply 15 Oct | owner: Diego | accounts: Larchwyn Builders, Quarrowe Software | quote: none | committed: none
+RS-3060 | Blank screen after update | link: https://support.rocketship.example/RS-3060 | opened 8 Sep | last reply 15 Oct | owner: Zara | accounts: 1 | quote: none | committed: 21 Oct
+RS-3061 | Rename breaks links | link: https://support.rocketship.example/RS-3061 | opened 11 Sep | last reply 19 Oct | owner: Ravi | accounts: 1 | quote: none | committed: none
+RS-3062 | Wrong tax on invoice | link: https://support.rocketship.example/RS-3062 | opened 14 Sep | last reply 15 Oct | owner: Marco | accounts: 1 | quote: none | committed: 20 Oct
+RS-3063 | Tablet buttons cut off | link: https://support.rocketship.example/RS-3063 | opened 9 Sep | last reply 15 Oct | owner: Priya | accounts: 1 | quote: none | committed: none
+RS-3064 | Date picker skips a day | link: https://support.rocketship.example/RS-3064 | opened 21 Sep | last reply 15 Oct | owner: Diego | accounts: 1 | quote: none | committed: none
+RS-3065 | Broken links in alerts | link: https://support.rocketship.example/RS-3065 | opened 18 Sep | last reply 19 Oct | owner: Tomas | accounts: Oakhallow Telecom | quote: none | committed: none
+RS-3066 | Invite links never expire | link: https://support.rocketship.example/RS-3066 | opened 8 Oct | last reply 15 Oct | owner: Felix | accounts: 2 | quote: "This bug costs us an hour each day." | committed: none
+RS-3067 | Weekly report is stale | link: https://support.rocketship.example/RS-3067 | opened 3 Sep | last reply 15 Oct | owner: Ben | accounts: Hearthmoor Care | quote: none | committed: none
+RS-3068 | Mentions do not notify | link: https://support.rocketship.example/RS-3068 | opened 9 Sep | last reply 19 Oct | owner: Jonas | accounts: 1 | quote: none | committed: none
+RS-3069 | Tiles overlap on mobile | link: https://support.rocketship.example/RS-3069 | opened 21 Sep | last reply 13 Oct | owner: Aisha | accounts: 1 | quote: none | committed: none
+RS-3070 | Receipts to wrong email | link: https://support.rocketship.example/RS-3070 | opened 8 Oct | last reply 19 Oct | owner: Ravi | accounts: 1 | quote: none | committed: none
+RS-3071 | Webhook retries stop | link: https://support.rocketship.example/RS-3071 | opened 14 Sep | last reply 25 Sep | owner: none | accounts: Fernwick Labs, Orvanta Foods | quote: none | committed: 20 Oct
+RS-3072 | Export breaks dates | link: https://support.rocketship.example/RS-3072 | opened 16 Sep | last reply 15 Oct | owner: none | accounts: 1 | quote: none | committed: none
+RS-3073 | Invoice in USD, not EUR | link: https://support.rocketship.example/RS-3073 | opened 14 Sep | last reply 19 Oct | owner: Ben | accounts: Hearthmoor Care | quote: none | committed: none
+RS-3074 | Offline edits lost | link: https://support.rocketship.example/RS-3074 | opened 9 Sep | last reply 19 Oct | owner: Aisha | accounts: Brackenlow Hotels | quote: none | committed: none
+RS-3075 | SSO opens wrong space | link: https://support.rocketship.example/RS-3075 | opened 7 Oct | last reply 19 Oct | owner: Mei | accounts: Velloran Travel | quote: none | committed: none
+RS-3076 | Digest sends twice | link: https://support.rocketship.example/RS-3076 | opened 9 Sep | last reply 15 Sep | owner: Felix | accounts: 1 | quote: none | committed: 12 Nov
+RS-3077 | Read-only can delete | link: https://support.rocketship.example/RS-3077 | opened 21 Sep | last reply 19 Oct | owner: Omar | accounts: 1 | quote: none | committed: none
+RS-3078 | Webhook timeout too short | link: https://support.rocketship.example/RS-3078 | opened 6 Oct | last reply 19 Oct | owner: Nadia | accounts: 1 | quote: none | committed: none
+RS-3079 | Badges do not clear | link: https://support.rocketship.example/RS-3079 | opened 7 Oct | last reply 19 Oct | owner: Mei | accounts: 1 | quote: none | committed: 23 Oct
+RS-3080 | SSO login loop on reset | link: https://support.rocketship.example/RS-3080 | opened 21 Sep | last reply 2 Oct | owner: none | accounts: 2 | quote: "Fix this week or we will cancel." | committed: 23 Oct
+RS-3081 | Large exports time out | link: https://support.rocketship.example/RS-3081 | opened 7 Oct | last reply 19 Oct | owner: Mei | accounts: 1 | quote: none | committed: none
+RS-3082 | Duplicate webhooks | link: https://support.rocketship.example/RS-3082 | opened 15 Sep | last reply 15 Oct | owner: Ben | accounts: Moorlark Clinics | quote: none | committed: none
+RS-3083 | Storage connect fails | link: https://support.rocketship.example/RS-3083 | opened 14 Oct | last reply 19 Oct | owner: Yuki | accounts: 3 | quote: none | committed: none
+RS-3084 | Webhook signature fails | link: https://support.rocketship.example/RS-3084 | opened 9 Sep | last reply 16 Oct | owner: Hana | accounts: 1 | quote: "Fix this soon or we will cancel." | committed: none
+RS-3085 | Audit log skips deletes | link: https://support.rocketship.example/RS-3085 | opened 5 Oct | last reply 15 Oct | owner: Aisha | accounts: 1 | quote: none | committed: none
+RS-3086 | Report totals differ | link: https://support.rocketship.example/RS-3086 | opened 10 Sep | last reply 29 Sep | owner: Ines | accounts: 4 | quote: none | committed: 7 Oct
+RS-3087 | Warehouse sync lags | link: https://support.rocketship.example/RS-3087 | opened 10 Sep | last reply 16 Oct | owner: none | accounts: Velloran Travel | quote: none | committed: none
+RS-3088 | Mobile search is empty | link: https://support.rocketship.example/RS-3088 | opened 25 Sep | last reply 16 Oct | owner: none | accounts: 1 | quote: none | committed: none
+RS-3089 | Alert settings reset | link: https://support.rocketship.example/RS-3089 | opened 17 Sep | last reply 19 Oct | owner: Ines | accounts: 1 | quote: none | committed: none
+RS-3090 | Search lags 2 days | link: https://support.rocketship.example/RS-3090 | opened 11 Sep | last reply 19 Oct | owner: Zara | accounts: 1 | quote: none | committed: none
+RS-3091 | Integration setup error | link: https://support.rocketship.example/RS-3091 | opened 10 Sep | last reply 15 Oct | owner: Ravi | accounts: 1 | quote: "Our CIO will escalate this on Friday." | committed: none
+RS-3092 | App logs users out | link: https://support.rocketship.example/RS-3092 | opened 18 Sep | last reply 15 Oct | owner: Aisha | accounts: 1 | quote: none | committed: none
+RS-3093 | SAML sign-in fails | link: https://support.rocketship.example/RS-3093 | opened 16 Sep | last reply 19 Oct | owner: Yuki | accounts: 1 | quote: none | committed: none
+RS-3094 | Webhooks out of order | link: https://support.rocketship.example/RS-3094 | opened 7 Oct | last reply 19 Oct | owner: Hana | accounts: 1 | quote: "Our legal team will escalate this." | committed: none
+RS-3095 | Refund not in history | link: https://support.rocketship.example/RS-3095 | opened 1 Oct | last reply 19 Oct | owner: Kofi | accounts: Wrenfield Pharma | quote: none | committed: none
+RS-3096 | Report filters reset | link: https://support.rocketship.example/RS-3096 | opened 9 Sep | last reply 15 Sep | owner: Zara | accounts: 1 | quote: "Not great. We expected a fix by now." | committed: none
+RS-3097 | PDF export drops charts | link: https://support.rocketship.example/RS-3097 | opened 17 Sep | last reply 15 Oct | owner: Yuki | accounts: 1 | quote: none | committed: 9 Oct
+RS-3098 | Battery drain on mobile | link: https://support.rocketship.example/RS-3098 | opened 10 Sep | last reply 19 Oct | owner: Nadia | accounts: Saltquay Data | quote: none | committed: none
+RS-3099 | Wrong team on dashboard | link: https://support.rocketship.example/RS-3099 | opened 18 Sep | last reply 22 Sep | owner: Nadia | accounts: 1 | quote: none | committed: 5 Nov
+RS-3100 | Blank invoice PDF | link: https://support.rocketship.example/RS-3100 | opened 1 Oct | last reply: missing | owner: Nadia | accounts: 1 | quote: none | committed: 21 Oct

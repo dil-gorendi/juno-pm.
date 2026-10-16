@@ -18,6 +18,8 @@ The file [`AGENTS.md`](AGENTS.md) gives the rules for each AI tool that works in
 ### M2 · Prototype
 - **Prototype**: [`02-prototype/prototype.md`](02-prototype/prototype.md). The link, what the prototype shows, and the debrief.
 - **Skill file**: [`02-prototype/risk-radar-skill.md`](02-prototype/risk-radar-skill.md). Juno finds the 3 open threads with the highest risk and writes a Monday card.
+- **Demo data**: [`02-prototype/demo-threads-100.txt`](02-prototype/demo-threads-100.txt). 100 fictional threads for the demo.
+- **Demo answer key**: [`02-prototype/demo-answer-key.md`](02-prototype/demo-answer-key.md). The card that Juno must write for the demo, and a script that checks the data.
 
 ### M3 · Harness / AI PRD
 - **AI PRD**: [`03-harness-prd/prd.md`](03-harness-prd/prd.md).
@@ -44,6 +46,8 @@ juno-pm/
 ├── 02-prototype/
 │   ├── prototype.md             # M2: prototype link and debrief
 │   ├── risk-radar-skill.md      # M2: Juno's skill file for the risk radar
+│   ├── demo-threads-100.txt     # M2: 100 fictional threads for the demo
+│   ├── demo-answer-key.md       # M2: the expected demo card and a check script
 │   └── app/                     # M2: the prototype app (one page and a local server)
 ├── 03-harness-prd/
 │   └── prd.md                   # M3: AI PRD for the six harness surfaces

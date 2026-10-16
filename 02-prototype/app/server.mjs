@@ -13,6 +13,7 @@ const MAX_INPUT_CHARS = 20000;
 const MAX_BODY_BYTES = 200000;
 const PAGE = new URL('./index.html', import.meta.url);
 const SKILL_FILE = new URL('../risk-radar-skill.md', import.meta.url);
+const DEMO_FILE = new URL('../demo-threads-100.txt', import.meta.url);
 const LOCAL_HOSTS = new Set([`localhost:${PORT}`, `127.0.0.1:${PORT}`]);
 
 // The client gets the region from AWS_REGION and the credentials from the AWS profile.
@@ -99,6 +100,10 @@ const server = createServer(async (req, res) => {
       const page = await readFile(PAGE);
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
       return res.end(req.method === 'HEAD' ? undefined : page);
+    }
+    // The page loads the 100-thread demo from this one copy of the data.
+    if (req.method === 'GET' && pathname === '/demo-threads-100.txt') {
+      return send(res, 200, 'text/plain; charset=utf-8', await readFile(DEMO_FILE));
     }
     if (req.method === 'POST' && pathname === '/api/radar') {
       const threads = await readThreads(req);

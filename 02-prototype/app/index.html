@@ -127,6 +127,7 @@
     <div class="buttons">
       <button type="button" id="load-example">Load example</button>
       <button type="button" id="load-no-date">Load example without today's date</button>
+      <button type="button" id="load-demo">Load 100-thread demo</button>
       <button type="button" id="run" class="run">Run radar</button>
     </div>
   </section>
@@ -175,6 +176,8 @@ const EXAMPLE = 'Today: Monday 19 October 2026\n' + EXAMPLE_NO_DATE;
 // Stored results for the two examples. The app shows them when it cannot call the AI model.
 // Juno wrote these results on 15 October 2026 (us.anthropic.claude-opus-5-5, effort medium).
 const STORED_RESULT = "# Risk radar · Monday 19 October 2026\n\n## Top risks\n\n1. **RS-2001 · SSO login loop** (link not in inputs)\n   - **Why:** Silent (last reply 9 Oct). No owner (owner: none). Date at risk (committed 23 Oct). Spread (2 accounts). Escalation: \"we will not renew.\"\n   - **Next step:** Ask the team lead for an owner before 23 Oct.\n\n2. **RS-2004 · Audit export timeout** (link not in inputs)\n   - **Why:** Date at risk (committed 21 Oct). Spread (accounts: 3).\n   - **Next step:** Ask Priya if the fix will be ready by 21 Oct.\n\n3. **RS-2012 · Webhook retries fail** (link not in inputs)\n   - **Why:** No owner (owner: none). Spread (accounts: 2). The Silent signal is unknown because the last reply is missing.\n   - **Next step:** Check the thread for the date of the last reply.\n\n## Data gaps\n\nRS-2012: last reply is missing. All threads: link is missing.";
+// Juno wrote the demo card on 15 October 2026 (same model). It agrees with section 2 of demo-answer-key.md.
+const STORED_RESULT_DEMO = "# Risk radar · Monday 19 October 2026\n\n## Top risks\n\n1. [RS-3080 · SSO login loop on reset](https://support.rocketship.example/RS-3080)\n   - **Why:** Silent since 2 Oct. No owner. 2 accounts. Committed 23 Oct. Quote: \"Fix this week or we will cancel.\"\n   - **Next step:** Ask support who will reply to the customer before 23 Oct.\n\n2. [RS-3045 · Double annual charge](https://support.rocketship.example/RS-3045)\n   - **Why:** Silent since 8 Oct. No owner. Committed 21 Oct. Quote: \"We will escalate this to your CEO.\"\n   - **Next step:** Check the status of the charge fix before 21 Oct.\n\n3. [RS-3071 · Webhook retries stop](https://support.rocketship.example/RS-3071)\n   - **Why:** Silent since 25 Sep. No owner. Accounts: Fernwick Labs, Orvanta Foods. Committed 20 Oct.\n   - **Next step:** Ask the team if the fix can meet the 20 Oct date.\n\n## Also watch\n\nRS-3026, RS-3086, RS-3052, RS-3038, RS-3048\n\n## Data gaps\n\nRS-3037, RS-3057, and RS-3100 do not have a last reply date.";
 const STORED_RESULT_NO_DATE = "**Risk radar: cannot rank**\n\nThe inputs do not give the date of today. Without this date, I cannot find the Silent and Date at risk signals. Thus, I do not rank the threads.\n\n**Fields that I must have:**\n\n- **Date of today:** The inputs do not give it.\n- **Link:** No thread has a link.\n- **Last reply:** RS-2012 does not have a last reply date.\n\nSend the date of today and the missing fields. Then I will make the card.";
 
 const SIGNALS = ['Date at risk', 'No owner', 'Escalation', 'Silent', 'Spread'];
@@ -183,6 +186,7 @@ const THREAD_ID = /\b[A-Z][A-Z0-9]*-\d+\b/g;
 const TOKEN = new RegExp('\\b([a-z][a-z0-9]*-\\d+)\\b|\\b(' + SIGNALS.join('|') + ')\\b', 'gi');
 const NO_BACKEND = 'This copy of the app cannot call the AI model.';
 let threadIds = new Set();
+let demoText = null;
 const INLINE = /\*\*(.+?)\*\*|\*(\S(?:.*?\S)?)\*|`([^`]+)`|\[([^\]]+)\]\([^)]*\)/g;
 
 const textBox = document.getElementById('threads');
@@ -198,6 +202,7 @@ function storedResultFor(text) {
   const input = normalize(text);
   if (input === normalize(EXAMPLE)) return STORED_RESULT;
   if (input === normalize(EXAMPLE_NO_DATE)) return STORED_RESULT_NO_DATE;
+  if (demoText !== null && input === normalize(demoText)) return STORED_RESULT_DEMO;
   return null;
 }
 
@@ -385,8 +390,8 @@ async function runRadar() {
     if (stored) {
       showMessage(stored, 'Stored result. ' + error.message);
     } else {
-      showMessage(error.message + ' Only the two examples have a stored result. ' +
-        'Click **Load example** or **Load example without today\'s date**. Then click **Run radar**.');
+      showMessage(error.message + ' Only the two examples and the 100-thread demo have a stored result. ' +
+        'Click **Load example**, **Load example without today\'s date**, or **Load 100-thread demo**. Then click **Run radar**.');
     }
   } finally {
     setBusy(false);
@@ -411,6 +416,23 @@ function load(text) {
 textBox.addEventListener('input', updateCount);
 document.getElementById('load-example').addEventListener('click', () => load(EXAMPLE));
 document.getElementById('load-no-date').addEventListener('click', () => load(EXAMPLE_NO_DATE));
+
+// Load the 100-thread demo from its file. The answer key matches this one copy of the data.
+async function loadDemo() {
+  setBusy(true);
+  try {
+    const response = await fetch('../demo-threads-100.txt');
+    if (!response.ok) throw new Error('status ' + response.status);
+    demoText = await response.text();
+    load(demoText);
+  } catch (error) {
+    showMessage('Juno cannot load the 100-thread demo. Reason: ' + error.message + '. ' +
+      'Click **Load example** to use the 5-thread example.');
+  } finally {
+    setBusy(false);
+  }
+}
+document.getElementById('load-demo').addEventListener('click', loadDemo);
 runButton.addEventListener('click', runRadar);
 showMessage('Paste the open threads in the text box, or click **Load example**. Then click **Run radar**.');
 </script>

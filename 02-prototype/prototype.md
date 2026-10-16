@@ -16,7 +16,7 @@ The local server sends the text box content to Claude on Amazon Bedrock. It uses
 
 ## What it demonstrates
 
-Juno reads the open threads and writes one Monday risk card in the Slack channel #pm-monday. The card shows the 3 threads with the highest risk, and each signal shows as a red tag. If the inputs do not give the date of today, Juno does not rank. Then Juno writes the fields that it must have.
+Juno reads the open threads and writes one Monday risk card in the Slack channel #pm-monday. The card shows the 3 threads with the highest risk, and each signal shows as a red tag. If the inputs do not give the date of today, Juno does not rank. Then Juno writes the fields that it must have. The button "Load 100-thread demo" loads 100 fictional threads from [`demo-threads-100.txt`](demo-threads-100.txt), and [`demo-answer-key.md`](demo-answer-key.md) gives the card that Juno must write.
 
 ## Debrief
 
