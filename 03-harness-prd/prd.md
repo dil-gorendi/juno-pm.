@@ -1,8 +1,10 @@
-# AI PRD · Juno
+# AI PRD · Juno Risk radar
 
 _Module 3. Sections from `M3 - AI PRD Builder.html`. The harness for the Juno Risk radar, which [Module 2](../02-prototype/prototype.md) prototyped. Rules: [`risk-radar-skill.md`](../02-prototype/risk-radar-skill.md). Test data: [`demo-threads-100.txt`](../02-prototype/demo-threads-100.txt). Expected results: [`demo-answer-key.md`](../02-prototype/demo-answer-key.md)._
 
 ## Problem & user
+
+**Product:** Juno is RocketShip's internal AI Associate PM. The risk radar is one of its 3 jobs. Pearson Co and Initech are RocketShip customers, and their threads are the evidence.
 
 **User:** the RocketShip PM, at the start of each workday. Juno shows the risks. The PM makes all decisions.
 
