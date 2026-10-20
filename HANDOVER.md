@@ -2,7 +2,7 @@
 
 Read this file before you start work in this repo. Update it at the end of each session.
 
-Last update: 16 October 2026, after the 100-thread demo and the change to the risk radar skill file.
+Last update: 20 October 2026, after the first draft of the M3 AI PRD.
 
 ## Status
 
@@ -10,7 +10,7 @@ Last update: 16 October 2026, after the 100-thread demo and the change to the ri
 | :- | :- | :- |
 | M1 · Prompting | `01-prompting/skill-file.md` | Done. On `main`. |
 | M2 · Prototype | `02-prototype/prototype.md`, `02-prototype/app/` | Done. On `main`. The public link is in `prototype.md`. The debrief is a first draft. The 100-thread demo is on `main`. It has a stored card from a live run. |
-| M3 · Harness / AI PRD | `03-harness-prd/prd.md` | Not started. Template placeholder. |
+| M3 · Harness / AI PRD | `03-harness-prd/prd.md` | First draft. On `main`. The owner reviews it. The Lab 1 sketch is outside the repo. |
 | M4 · Agentic workflows | `04-agentic-workflows/agent-control-panel.md` | Not started. Template placeholder. |
 | M5 · Evals | `05-evals/human-rubric.md` | Not started. Template placeholder. |
 | M6 · Final presentation | `final-presentation.html` | Not started. |
@@ -30,6 +30,10 @@ The README has the pitch and the author details. It is on `main`.
 - **M2 stored cards:** the 3 stored cards in `index.html` come from the first skill file (commit 66f1394). Live runs did not test the changed skill file yet.
 - **M2 demo data:** `02-prototype/demo-threads-100.txt` is the only copy of the 100-thread demo. The page loads it with `fetch`, and `server.mjs` serves it. Do not change this file or `demo-answer-key.md`. If one line changes, the answer key becomes wrong. The stored demo card in `index.html` is live run 1, which agrees with section 2 of the answer key. The owner approved it.
 
+- **M3 scope:** the PRD gives the harness for the M2 risk radar only. On 20 October 2026, the owner decided that Juno posts the card each weekday, not each Monday (PRD decision D5).
+- **M3 structure:** the PRD uses the section structure of the course tool `M3 - AI PRD Builder.html`. The tool did not make the text. The PRD sets write to blocked, not to the tool default of confirm, because v1 has no write verb.
+- **M3 rule changes:** PRD decisions D1 to D4 and D6 change M2 rules. The owner approves each one before `risk-radar-skill.md` or `demo-answer-key.md` changes.
+
 ## Repo setup
 
 - GitHub repo: `dil-gorendi/juno-pm.` The name ends with a dot. The local folder name has no dot.
@@ -46,3 +50,6 @@ The README has the pitch and the author details. It is on `main`.
 4. Line 158 of `demo-answer-key.md` says that the Format section does not give the Also watch sequence. This is not true after the change on 16 October 2026. The owner decides if the line changes.
 5. When the course gives the official cohort name, put it in the README byline.
 6. Optional: add one few-shot example to the skill file for a Given / When / Then acceptance criterion.
+7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D1 to D6. The acceptance criteria are the eval of the PRD, so they stay in it.
+8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday.
+9. M3: the owner posts the M3 share in #cohort-channel.

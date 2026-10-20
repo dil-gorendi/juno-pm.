@@ -22,7 +22,7 @@ The file [`AGENTS.md`](AGENTS.md) gives the rules for each AI tool that works in
 - **Demo answer key**: [`02-prototype/demo-answer-key.md`](02-prototype/demo-answer-key.md). The card that Juno must write for the demo, and a script that checks the data.
 
 ### M3 · Harness / AI PRD
-- **AI PRD**: [`03-harness-prd/prd.md`](03-harness-prd/prd.md).
+- **AI PRD**: [`03-harness-prd/prd.md`](03-harness-prd/prd.md). The six harness surfaces for the daily risk radar, with the checks and the acceptance criteria that an engineer builds from.
 
 ### M4 · Deploy Agentic Systems and Workflows
 - **Agent Control Panel**: [`04-agentic-workflows/agent-control-panel.md`](04-agentic-workflows/agent-control-panel.md).
