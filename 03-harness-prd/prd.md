@@ -31,11 +31,11 @@ _Module 3. Sections from `M3 - AI PRD Builder.html`. The harness for the Juno Ri
 | Surface | Specification |
 |---|---|
 | 01 Context | Open support desk threads. Code removes personal data and sends the model only the fields that it needs. |
-| 02 Tools | The model has no tools. The harness has 8 fixed functions, and 2 of them call the model. |
+| 02 Tools | The model has no tools. The harness has 8 fixed functions, and 2 of them call the model. A separate monitor job checks the run log for a Slack message ID. |
 | 03 Loop | A maximum of 4 model calls, 300 seconds, and 200 threads for each run. The ceiling is about $1.13. |
 | 04 Memory | No memory for the model. The harness keeps a run log for 90 days, at team scope. |
 | 05 Permissions | read auto · draft auto · write blocked · send blocked |
-| 06 Verification | Schema, verbatim quotes, a keyword floor, next step rules, and card facts. Each failure is visible. |
+| 06 Verification | Schema, verbatim quotes, a keyword floor, next step rules, card facts, and a thread count check. Each failure is visible. |
 
 **Archetype: single-shot assistant in a fixed pipeline.**
 
@@ -81,7 +81,7 @@ The support desk (`support.rocketship.example`) gives the open threads. Each thr
   - The file must start with a `Today:` line. This line also gives the year.
   - The server input cap becomes the call caps in 03 Loop. The request cap becomes 2,000,000 bytes ([`server.mjs`](../02-prototype/app/server.mjs#L12-L13)).
 - **Phase 2** reads a CSV file. The columns have the field names, with `message_1` to `message_3` for the messages.
-- **Phase 3** reads all pages of the API, for the statuses in `RADAR_OPEN_STATUSES`.
+- **Phase 3** reads all pages of the API, for the statuses in `RADAR_OPEN_STATUSES`. The read gives `pages_read` and `total_reported` (D7). If the thread count is not equal to `total_reported`, the run stops.
 - **Today** is the `Today:` line in Phase 1. In Phases 2 and 3, it is the date in `RADAR_TZ` when the run starts. The model never decides the date.
 
 Code calculates the signals:
@@ -99,6 +99,7 @@ The model sees only this:
 
 - **Call 1:** each thread ID with its 3 newest customer messages, at 450 characters each.
 - **Call 2:** the Top 3 threads, with ID, title, signals and values, owner, committed date, and the verified quote.
+- **Each call and each repair:** the input starts with the North Star paragraph of the [agent control panel](../04-agentic-workflows/agent-control-panel.md) (D7).
 - Before each call, code removes email addresses, phone numbers, URLs, account names, and strings that look like keys. A key string has 20 or more letters and digits, with no space.
 
 Juno does not read these sources:
@@ -127,8 +128,35 @@ These are harness functions:
 | `rank_threads` | draft | Ranks, and selects Top risks, Also watch, and Data gaps. Tags a Top risk as New if the card of the previous weekday did not have it. |
 | `write_next_steps` | draft | Model call 2. |
 | `render_card` | draft | Fills the card template. |
-| `verify_card` | read | Runs V1 to V6. |
+| `verify_card` | read | Runs V1 to V7. |
 | `post_card` | draft | Shows the card on the page, or posts it to Slack. A rerun edits the card of the same date. |
+
+Each verb returns the same envelope (D7). Code reads `ok` before the next step. Code never reads free text to find a failure.
+
+```json
+{"verb": "read_threads", "run_id": "r-2026-10-23", "ok": false, "count": 140, "pages_read": 7, "total_reported": 160, "error_class": "source_incomplete", "data": null}
+```
+
+- `error_class` is null, or one of: `no_date`, `source_unreachable`, `source_incomplete`, `empty_read`, `over_limit`, `gap_stop`, `schema_fail`, `quote_fail`, `step_fail`, `card_fail`, `model_error`, `busy`, `time_limit`, `channel_check_fail`, `post_fail`. Each event has 1 class:
+
+| Event | `error_class` |
+| :- | :- |
+| No date of today | `no_date` |
+| The source is unreachable | `source_unreachable` |
+| The read is not complete | `source_incomplete` |
+| The read has 0 open threads | `empty_read` |
+| More than 200 open threads | `over_limit` |
+| More than 25% of the threads have a data gap | `gap_stop` |
+| V1, V2, V3, or V4 fails after its repair | `schema_fail`, `quote_fail`, `step_fail`, `card_fail` |
+| A model call has an error after the SDK retry | `model_error` |
+| A rerun request during a run | `busy` |
+| The 300-second limit | `time_limit` |
+| The channel check fails | `channel_check_fail` |
+| The Slack post fails | `post_fail` |
+- Only `read_threads` shows `pages_read` and `total_reported`. `post_card` shows the Slack message ID in `data`.
+- The run log keeps `verb`, `ok`, `count`, and `error_class` of each envelope, and the Slack message ID.
+
+**Monitor (D7).** The monitor is a separate job, outside the run. In Phase 3, on each weekday at `RADAR_TIME` + 30 minutes, it reads the run log entry of today. If the entry has no Slack message ID, it sends 1 email to `RADAR_ALERT_TO`. The email shows the error class, or `no_run` if no run started. The monitor has its own service identity and no Slack access. Nothing watches the monitor.
 
 Model output. Neither object permits other properties. Each ID must come from the input, and only 1 time. Call 2 gives 1 step for each Top 3 ID.
 
@@ -147,7 +175,7 @@ Top risks
    Next step: {next_step}
 Also watch: {ids with 2 or more signals, in rank sequence}
 Data gaps: {id} ({reason, for example "no last reply date"}); ...
-Not verified: {check IDs and fallbacks}   <- only if one failed
+Not verified: {check IDs, fallbacks, and V7 counts}   <- only if one failed
 Data as of {HH:MM} {RADAR_TZ}. Run {run_id}.
 ```
 
@@ -177,6 +205,8 @@ Juno stops and gives the decision to the PM in these cases:
 | :- | :- | :- |
 | No date of today | "Radar did not run: no date of today", and the fields that it must have | 0 |
 | The source is unreachable | "Radar did not run: source unreachable", and the run ID. Never the raw error. | 0 |
+| The read is not complete: the thread count is not equal to `total_reported` (D7) | "Radar did not run: source incomplete", and the run ID | 0 |
+| The read has 0 open threads (D7) | "Radar did not run: 0 open threads. Check `RADAR_OPEN_STATUSES`." | 0 |
 | More than 200 open threads | The v1 limit, from the Module 2 class idea of "the three riskiest open threads out of two hundred" | 0 |
 | More than 25% of the threads have a data gap | The gap list, with no rank | 0 |
 | 300 seconds, and the rank is ready | The card, with "Not verified: time limit". Each next step that is not ready shows "Next step: not verified. Open the thread." | 4 or fewer |
@@ -184,7 +214,8 @@ Juno stops and gives the decision to the PM in these cases:
 
 **Latency and cost target**
 
-- Each attempt of call 1 stops after 110 seconds, as in Module 2. Each other attempt stops after 60 seconds. The 300-second limit is for failures, because in a normal run no attempt reaches its timeout. Target: 95% of the first 20 runs finish in 120 seconds.
+- In Phase 3, the support desk read gets a maximum of 3 attempts, with 30 seconds for each (D7). An attempt fails when a request fails or times out. After 3 failed attempts, the source is unreachable. If all requests answer but the count is not equal to `total_reported`, the read is not complete. It gets no new attempt.
+- Each attempt of call 1 stops after 110 seconds, as in Module 2. Each other model attempt stops after 60 seconds. The 300-second limit is for failures, because in a normal run no attempt reaches its timeout. Target: 95% of the first 20 runs finish in 120 seconds.
 - Claude Opus 5.5 costs $4 for each million input tokens and $20 for each million output tokens. This is the Claude API list price ([price page](https://platform.claude.com/docs/en/about-claude/pricing)). The same page says that Bedrock regional endpoints cost 10% more. It is not verified if the `us.` profile is regional.
 
 | Call | Input cap | `max_tokens` | Maximum cost |
@@ -203,16 +234,16 @@ Juno stops and gives the decision to the PM in these cases:
 | What | Scope | Expiry | Writer |
 | :- | :- | :- | :- |
 | Threads, signals, and model input and output | One run | End of the run | Harness |
-| Run log: IDs with signals, card text, Slack message ID, check results, counts, cost, and error class | Team | 90 days | Harness, add only |
+| Run log: IDs with signals, card text, Slack message ID, check results, the envelopes (`verb`, `ok`, `count`, `error_class`), the thread count, and cost | Team | 90 days | Harness, add only |
 | Configuration (Appendix B) | Team | Until a change | PM, with a reviewed change |
 | Memory for the model | None | Not applicable | Nobody |
 
 **Expiry and write rules**
 
 - The run log keeps no customer text, except the quotes on the card. A daily job deletes entries older than 90 days. On request, the PM can delete the entries of all threads of 1 account.
-- Only the PM and the eval reviewers can read the run log. Its store is private and encrypted at rest. The harness reads it only for the New tag, the lead time, and the Slack message ID for a rerun. The model never reads it.
+- Only the PM, the eval reviewers, and the monitor can read the run log. Its store is private and encrypted at rest. The harness reads it only for the New tag, the lead time, the Slack message ID for a rerun, and the last thread count (D7). The monitor reads only the entry of today. The model never reads it.
 - The model writes no memory. If the PM does not agree with a signal, the PM corrects the field in the support desk. The next run reads the correct field, because the source outranks Juno.
-- A second person approves each change to `RADAR_CHANNEL`, `RADAR_MEMBERS`, and `JUNO_MODEL`.
+- A second person approves each change to `RADAR_CHANNEL`, `RADAR_MEMBERS`, `RADAR_ALERT_TO`, and `JUNO_MODEL`.
 
 ## 05 Permissions · AI Risks & Mitigations
 
@@ -231,9 +262,10 @@ Juno stops and gives the decision to the PM in these cases:
 - **draft · auto:** a bad card costs one PM read, and a rerun replaces it. This is true only in a private PM channel. Before each post, Juno checks that the channel is private and that each member is in `RADAR_MEMBERS`. If not, Juno posts only "Radar did not post: channel check failed".
 - **write · blocked:** v1 has no write verb. A colleague acts on an owner or a committed date, and the skill file forbids these changes. The tool default is confirm, and blocked is stricter on purpose.
 - **send · blocked:** a reply to a customer goes outside the team, and nobody can take it back.
+- **Monitor email · draft:** send means a message that goes outside the PM team. The monitor email goes only to the PM and has no customer text, so it is a draft (D7).
 - **Prompt injection:** customer text is data, not instructions. Code puts each thread between markers with a new random value for each run. The model has no tools, so injected text can change only its JSON. V1, V2, V3, and V6 check that JSON.
 - **Data:** call 1 sends customer text to the model endpoint after code removes personal data (Q2). Names in free text can stay.
-- **Secrets:** the tokens live in a secrets store, and the model call uses a service role. The Slack bot needs `chat:write` ([chat.update](https://docs.slack.dev/reference/methods/chat.update)) and `groups:read` ([conversations.members](https://docs.slack.dev/reference/methods/conversations.members)). Q3 confirms the scopes, the owner, and the rotation.
+- **Secrets:** the tokens live in a secrets store, and the model call uses a service role. The monitor has its own service identity and an email sender (Q3). The Slack bot needs `chat:write` ([chat.update](https://docs.slack.dev/reference/methods/chat.update)) and `groups:read` ([conversations.members](https://docs.slack.dev/reference/methods/conversations.members)). Q3 confirms the scopes, the owner, and the rotation.
 - **Phase 2 export:** it has only open threads and the record fields. The app does not keep the file.
 
 ## 06 Verification · AI Testing & Measurement
@@ -248,6 +280,7 @@ Juno stops and gives the decision to the PM in these cases:
 | V4 | Each Top risk and Also watch ID is in the input. Each Top risk has 1 or more signals, and each Also watch ID has 2 or more. Both lists are in rank sequence. Each Data gaps ID has a reason. | 100% |
 | V5 | Each Why line has 20 words or fewer, without the quote. The card has 180 words or fewer of visible text (D2). A word has a letter or a digit. | Warning |
 | V6 | Keyword floor: a customer message matches `\b(escalat\|cancel\|not renew)\w*` in any case, but call 1 gives no Escalation. | Data gaps note |
+| V7 | The thread count is half or more of the last count. The last count is the newest count of a run that posted a card, in the run log from the last 5 weekdays (D7). | Not verified note |
 
 V3 terms for code. A new name is a capitalized word, after the first word, that is not in the thread input and is not "PM". A new number is a word with a digit that is not in the thread input. A priority word starts with "priorit" or "depriorit" in any case, or is P0, P1, P2, or P3.
 
@@ -265,10 +298,13 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 | V5 fails | The card posts, and the run log keeps the counts. |
 | V6 fires | Data gaps: "Escalation check: model and keyword rule disagree". |
 | The Slack post fails | No retry, because a retry can post 2 cards. The PM can start a rerun. |
+| V7 fails | The card shows "Not verified: thread count decreased from {a} to {b}". |
+| V7 has no last count | The card shows "Not verified: no previous thread count". |
+| No card exists at `RADAR_TIME` + 30 minutes | The monitor sends 1 email to the PM, with the error class or `no_run`. |
 
-**Release gate:** the signal and rank code gives the answer-key result for the demo data. Copy the check script from [section 4 of the answer key](../02-prototype/demo-answer-key.md#4-check-script) to `check_threads.py`. Then `python3 check_threads.py demo-threads-100.txt` must show 0 errors. Criteria 1 to 13 and 19, and the live checks in the Eval plan, pass before Phase 2. Criteria 14 to 18 pass in the Phase 3 test environment.
+**Release gate:** the signal and rank code gives the answer-key result for the demo data. Copy the check script from [section 4 of the answer key](../02-prototype/demo-answer-key.md#4-check-script) to `check_threads.py`. Then `python3 check_threads.py demo-threads-100.txt` must show 0 errors. Criteria 1 to 13, 19, 21 to 24, and 26, and the live checks in the Eval plan, pass before Phase 2. Criteria 14 to 18, 20, and 25 pass in the Phase 3 test environment.
 
-**Acceptance criteria.** A stub is a fixture for a model call, through `RADAR_MODEL_STUB`. Each criterion uses stubs, so it gives the same result in each run.
+**Acceptance criteria.** A stub is a fixture for a model call, through `RADAR_MODEL_STUB`. Each criterion uses stubs, so it gives the same result in each run. If a criterion does not say otherwise, the run log has a card run with 100 threads on the previous weekday.
 
 | # | Given | When | Then |
 | :- | :- | :- | :- |
@@ -288,9 +324,16 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 | 14 | A verified quote with `<!channel>` | Phase 3 posts the card. | The posted text has `&lt;!channel&gt;`, and no channel notice occurs. |
 | 15 | A card for today. The card of the previous weekday has no RS-3080 in Top risks. | The PM starts a rerun. | Juno edits the same Slack message, and posts no second card. RS-3080 has the New tag. |
 | 16 | A channel member who is not in `RADAR_MEMBERS` | A Phase 3 run starts. | Juno posts only "Radar did not post: channel check failed". |
-| 17 | A support desk API that does not answer | A Phase 3 run starts. | "Radar did not run: source unreachable" and the run ID, with no raw error. |
+| 17 | A support desk API that does not answer | A Phase 3 run starts. | 3 read attempts of 30 seconds or less. Then "Radar did not run: source unreachable" and the run ID, with no raw error. |
 | 18 | The Juno support desk token | A test sends a write request. | The support desk refuses it. A normal run's audit log shows only read calls. |
 | 19 | Any run | The run ends. | The run log shows 4 model calls or fewer, call 1 input of 300,000 characters or fewer, and output in each `max_tokens` cap. The daily job deletes entries older than 90 days. |
+| 20 | A support desk API that answers all requests. It gives 7 of 8 pages: 140 threads, with `total_reported` 160. | A Phase 3 run starts. | "Radar did not run: source incomplete", the run ID, and 0 model calls. |
+| 21 | A read with 0 open threads | The radar runs. | "Radar did not run: 0 open threads. Check `RADAR_OPEN_STATUSES`." and 0 model calls. |
+| 22 | Call 1 stub: an error, 2 times | The radar runs. | The run log has 1 envelope for each verb that ran. The `find_escalations` envelope has `ok` false and `model_error`. Each other envelope has `ok` true and no `error_class`. |
+| 23 | The run log has a card run with 100 threads on the previous weekday, and a stopped run with 0 threads after it. Today has 49 threads, then 50. | The radar runs. | With 49: "Not verified: thread count decreased from 100 to 49". With 50: no V7 note. |
+| 24 | The run log has no count from the last 5 weekdays | The radar runs. | The card shows "Not verified: no previous thread count". |
+| 25 | Phase 3. Weekday A has `post_fail`. Weekday B has no run. Weekday C has a card. | The monitor runs at `RADAR_TIME` + 30 minutes. | Day A: 1 email with `post_fail`. Day B: 1 email with `no_run`. Day C: no email. |
+| 26 | Call 1 and call 2 stubs. Each stub records its input and gives an output that fails V1 on its first answer. | The radar runs. | The input of call 1, call 2, and each of the 2 repairs starts with the North Star paragraph of the agent control panel, character for character. |
 
 ## Eval plan
 
@@ -306,7 +349,7 @@ Module 5 fills [`human-rubric.md`](../05-evals/human-rubric.md). The plan is tha
 
 ## Out of scope
 
-Any capability not in the verb list above, and any action tiered `blocked`. Both are decisions on the record, not omissions.
+Any capability not in the verb list above or the monitor, and any action tiered `blocked`. Both are decisions on the record, not omissions.
 
 - Snooze, and trends across weeks.
 - A holiday calendar. v1 counts public holidays as weekdays.
@@ -320,7 +363,7 @@ Any capability not in the verb list above, and any action tiered `blocked`. Both
 | :- | :- | :- | :- | :- |
 | 1 · Test | The PM clicks Run radar in the Module 2 app. | Demo data and fixtures | The app page | None |
 | 2 · Shadow | The PM clicks Run radar each weekday. | A CSV export that the PM makes | The app page | Q2 and Q4 |
-| 3 · Daily | The scheduler, each weekday at `RADAR_TIME` | The support desk API, with a read-only token | `RADAR_CHANNEL` in Slack | Q1, Q3, and the Phase 2 targets |
+| 3 · Daily | The scheduler, each weekday at `RADAR_TIME` | The support desk API, with a read-only token | `RADAR_CHANNEL` in Slack | Q1, Q3, a total count from the API (Q6), and the Phase 2 targets |
 
 **B. Settings.**
 
@@ -336,6 +379,7 @@ Any capability not in the verb list above, and any action tiered `blocked`. Both
 | `RADAR_ESCALATION_MODE` | `model` | `model` or `keyword` (D6) |
 | `JUNO_MODEL`, `JUNO_EFFORT` | `us.anthropic.claude-opus-5-5`, `medium` | A model and an effort that pass the eval |
 | `RADAR_MODEL_STUB` | Off | A fixture file, in the test environment only |
+| `RADAR_ALERT_TO` | None, required in Phase 3 | The email address of the PM (D7) |
 
 **C. Decisions.** D1 to D4 and D6 change Module 2 rules. The owner approves each one before the skill file or the answer key changes.
 
@@ -347,6 +391,7 @@ Any capability not in the verb list above, and any action tiered `blocked`. Both
 | D4 | The last tie-break is the thread ID, sorted as text. | The skill file has none. The demo result does not change. |
 | D5 | Juno posts each weekday. The owner decided this on 20 October 2026. | The skill file says "on Monday morning", so it must change. |
 | D6 | Keep call 1 only if, in each of 3 runs, it misses none of the 11 demo Escalations and is correct on 5 or more fixtures more than the keyword rule. If not, use `keyword` mode. | The keyword rule already gets all 22 demo quotes correct. |
+| D7 | Add the Module 4 controls: the read count check, the 0-thread stop, the read attempts, the envelope, V7, the monitor, and the North Star line. The owner decided this on 22 October 2026. | The [Module 4 control panel](../04-agentic-workflows/agent-control-panel.md) found that a partial read, an empty read, or a card that does not post gives no error. |
 
 **D. Open questions.**
 
@@ -354,6 +399,7 @@ Any capability not in the verb list above, and any action tiered `blocked`. Both
 | :- | :- | :- |
 | Q1 | Which private channel gets the card? Who are its members, and how long does it keep messages? The Module 2 mockup uses `#pm-monday`, a name for a weekly card. | PM |
 | Q2 | Can customer text go to the model endpoint, after code removes personal data? | Security & Compliance |
-| Q3 | Can Juno have a read-only support desk token, a Slack bot with the 2 scopes in 05, and a service role that can call only `JUNO_MODEL`? Who owns and rotates them? The pod has no capacity this quarter (Engineering Capacity Note). | Security & Compliance, through Priya Nair (VP Engineering) |
+| Q3 | Can Juno have a read-only support desk token, a Slack bot with the 2 scopes in 05, and a service role that can call only `JUNO_MODEL`? Can the monitor have an email sender? Who owns and rotates them? The pod has no capacity this quarter (Engineering Capacity Note). | Security & Compliance, through Priya Nair (VP Engineering) |
 | Q4 | Does the support desk keep a committed date and the accounts for each thread? Which statuses mean open? Is `last_reply` the newest public reply from a RocketShip person? Can the export give the Phase 2 columns? | PM, with the support desk admin |
 | Q5 | Does v2 add a renewal signal from CRM? Pearson Co renews in 45 days. | PM |
+| Q6 | Does the support desk API give a total count for a read (D7)? | PM, with the support desk admin |
