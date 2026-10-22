@@ -10,7 +10,7 @@ Each weekday before the first meeting (RADAR_TIME, default 08:00), Juno posts on
 
 **Stop Conditions** (Loop):
 
-Done: today's card is in RADAR_CHANNEL, and the run log has its Slack message ID. Limits for each run: 4 model calls and 300 seconds. The SDK retries a timeout or a retryable HTTP error 1 time. Each failed check gets 1 repair call. A model call error gets no repair. The support desk read gets 3 attempts of 30 seconds. The Slack post gets no retry. Juno stops before model call 1 for 6 causes. The first causes are no date of today, an unreachable source, or an incomplete read. The other causes are 0 open threads, more than 200 open threads, or data gaps in more than 25% of the threads. Only 1 run occurs at a time.
+Done: today's card is in RADAR_CHANNEL, and the run log has its Slack message ID. Limits for each run: 4 model calls and 300 seconds. The SDK retries a timeout or a retryable HTTP error 1 time. Each failed check V1, V2, or V3 gets 1 repair call. A model call error gets no repair. The support desk read gets 3 attempts of 30 seconds. The Slack post gets no retry. Juno stops before model call 1 for 6 causes. The first causes are no date of today, an unreachable source, or an incomplete read. The other causes are 0 open threads, more than 200 open threads, or data gaps in more than 25% of the threads. Only 1 run occurs at a time.
 
 **Structured Tool Outputs** (Tools):
 
@@ -18,7 +18,7 @@ Each of the 8 harness functions returns 1 JSON envelope: verb, run_id, ok, count
 
 **Confidence Thresholds** (Verification):
 
-These are rules, not a model score. Juno does not rank if the input has no date of today, or if more than 25% of the threads have a data gap. An Escalation needs 1 whole customer sentence, word for word, with equal spaces and the same letter case. If a message matches the keyword rule but model call 1 gives no Escalation, the card shows a Data gaps note. The last count is the newest thread count of a run that posted a card, in the run log from the last 5 weekdays. If today's count is less than half of it, the card shows "Not verified: thread count decreased from {a} to {b}". If no last count exists, the card shows "Not verified: no previous thread count". This rule is a proposed change to PRD 04 Memory and to the card template. Before the post, Juno checks that the channel is private and that each member is in RADAR_MEMBERS.
+These are rules, not a model score. Juno does not rank if the input has no date of today, or if more than 25% of the threads have a data gap. If the read has 0 open threads, the run stops. An Escalation needs 1 whole customer sentence, word for word, with equal spaces and the same letter case. If a message matches the keyword rule but model call 1 gives no Escalation, the card shows a Data gaps note. The last count is the newest thread count of a run that posted a card, in the run log from the last 5 weekdays. If today's count is less than half of it, the card shows "Not verified: thread count decreased from {a} to {b}". If no last count exists, the card shows "Not verified: no previous thread count". PRD decision D7 adds this rule. Before the post, Juno checks that the channel is private and that each member is in RADAR_MEMBERS.
 
 **North Star** (Context):
 
@@ -40,4 +40,4 @@ If a model output fails check V1, V2, or V3, Juno sends 1 repair call with only 
 
 **Checkpoints:**
 
-The card goes only to the private PM channel, so the PM read is the checkpoint before any action on a thread. Phase 2 starts only after 3 conditions. The 3 live-model eval checks pass in 3 of 3 runs. The Phase 2 acceptance criteria of the PRD release gate pass. Q2 and Q4 have answers. Phase 3 starts only after 4 conditions. Escalation precision is 90% or more in 10 shadow runs. The PM finds 0 misses in 10 unflagged threads each week for 2 weeks. Q1 and Q3 have answers. The support desk API gives a total count. If the PM acts on no next step in the 10 shadow runs, the project stops. A second person approves each change to RADAR_CHANNEL, RADAR_MEMBERS, and JUNO_MODEL.
+The card goes only to the private PM channel, so the PM read is the checkpoint before any action on a thread. Phase 2 starts only after 3 conditions. The 3 live-model eval checks pass in 3 of 3 runs. The Phase 2 acceptance criteria of the PRD release gate pass. Q2 and Q4 have answers. Phase 3 starts only after 4 conditions. Escalation precision is 90% or more in 10 shadow runs. The PM finds 0 misses in 10 unflagged threads each week for 2 weeks. Q1 and Q3 have answers. The support desk API gives a total count. If the PM acts on no next step in the 10 shadow runs, the project stops. A second person approves each change to RADAR_CHANNEL, RADAR_MEMBERS, RADAR_ALERT_TO, and JUNO_MODEL.

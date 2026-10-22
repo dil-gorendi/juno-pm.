@@ -25,7 +25,7 @@ The README has the pitch and the author details. It is on `main`.
 - **Data:** this repo is public. Use only the fictional RocketShip scenario. Do not add company data or customer data.
 - **Changes:** use a pull request to change the M1 skill file. Commit the first version of a new artifact on `main`. Then improve it in later commits.
 - **Author workflow:** the agent writes the first draft. The owner edits it. Commit and push only when the owner tells you to.
-- **M2 AI call:** the local server (`npm start`) calls Claude on Amazon Bedrock with the AWS credentials of the computer. The public copy on GitHub Pages cannot call a model, so it shows stored results for the two examples. Do not put credentials or an API key in the app.
+- **M2 AI call:** the local server (`npm start`) calls Claude on Amazon Bedrock with the AWS credentials of the computer. The public copy on GitHub Pages cannot call a model, so it shows stored results for the two examples and the 100-thread demo. Do not put credentials or an API key in the app.
 - **M2 skill file:** the app uses `risk-radar-skill.md` without changes. The owner decides each change to the skill file. On 16 October 2026, the owner changed 3 rules: each Why line names each signal, Also watch uses the rank sequence, and the maximum length is 160 words.
 - **M2 stored cards:** the 3 stored cards in `index.html` come from the first skill file (commit 66f1394). Live runs did not test the changed skill file yet.
 - **M2 demo data:** `02-prototype/demo-threads-100.txt` is the only copy of the 100-thread demo. The page loads it with `fetch`, and `server.mjs` serves it. Do not change this file or `demo-answer-key.md`. If one line changes, the answer key becomes wrong. The stored demo card in `index.html` is live run 1, which agrees with section 2 of the answer key. The owner approved it.
@@ -52,7 +52,7 @@ The README has the pitch and the author details. It is on `main`.
 4. Line 158 of `demo-answer-key.md` says that the Format section does not give the Also watch sequence. This is not true after the change on 16 October 2026. The owner decides if the line changes.
 5. When the course gives the official cohort name, put it in the README byline.
 6. Optional: add one few-shot example to the skill file for a Given / When / Then acceptance criterion.
-7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D1 to D6. The owner approved D7. The acceptance criteria are the eval of the PRD, so they stay in it.
+7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D2, D3, D4, and D6. The owner decided D5 on 20 October 2026, and D1 and D7 on 22 October 2026. The acceptance criteria are the eval of the PRD, so they stay in it.
 8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday.
 9. M3: the owner posts the M3 share in #cohort-channel.
 10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.

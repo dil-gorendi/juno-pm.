@@ -147,7 +147,7 @@ Each verb returns the same envelope (D7). Code reads `ok` before the next step. 
 | The read has 0 open threads | `empty_read` |
 | More than 200 open threads | `over_limit` |
 | More than 25% of the threads have a data gap | `gap_stop` |
-| V1, V2, V3, or V4 fails after its repair | `schema_fail`, `quote_fail`, `step_fail`, `card_fail` |
+| V1, V2, or V3 fails after its repair, or V4 fails | `schema_fail`, `quote_fail`, `step_fail`, `card_fail` |
 | A model call has an error after the SDK retry | `model_error` |
 | A rerun request during a run | `busy` |
 | The 300-second limit | `time_limit` |
@@ -337,7 +337,7 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 
 ## Eval plan
 
-_Stub. Module 6 fills this in: golden set, pass thresholds, and regression cadence for the verification gate above._
+_Stub. Module 5 fills this in: golden set, pass thresholds, and regression cadence for the verification gate above._
 
 The golden set starts with 3 live-model checks. Each one must pass in 3 of 3 runs before Phase 2.
 
@@ -385,7 +385,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 
 | ID | Decision | Reason |
 | :- | :- | :- |
-| D1 | Date at risk includes a committed date of today. | The skill file does not say. The check script does not count today. No demo thread is due today. |
+| D1 | Date at risk includes a committed date of today. The owner decided this on 22 October 2026. | The skill file does not say. The check script does not count today. No demo thread is due today. |
 | D2 | Code writes the Why line from the template in 02 Tools. The 20-word Why limit does not count the quote. The card limit is 180 words. Both limits only warn. | The answer-key Why lines have 27, 24, and 21 words. The demo card has 171 words. |
 | D3 | A next step starts with Ask, Check, or Tell. | The skill file says "a verb such as". A check needs a closed list. |
 | D4 | The last tie-break is the thread ID, sorted as text. | The skill file has none. The demo result does not change. |

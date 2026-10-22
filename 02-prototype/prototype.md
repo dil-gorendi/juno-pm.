@@ -4,7 +4,7 @@
 
 ## Prototype link
 
-[Juno · Risk radar](https://dil-gorendi.github.io/juno-pm./02-prototype/app/). A stranger can open this link. This public copy cannot call the AI model, so it shows the stored results for the two examples.
+[Juno · Risk radar](https://dil-gorendi.github.io/juno-pm./02-prototype/app/). A stranger can open this link. This public copy cannot call the AI model, so it shows the stored results for the two examples and the 100-thread demo.
 
 To use the live AI model, run the app on your computer:
 
