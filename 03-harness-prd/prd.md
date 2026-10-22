@@ -86,7 +86,7 @@ The support desk (`support.rocketship.example`) gives the open threads. Each thr
 
 Code calculates the signals:
 
-- **Silent:** 3 or more weekdays after `last_reply`, up to and including today. If no reply exists yet, code counts from `opened`. Public holidays count as weekdays.
+- **Silent:** 3 or more weekdays after `last_reply`, up to and including today. If no reply exists yet, code counts from `opened` (D8). Public holidays count as weekdays.
 - **No owner:** `owner` is empty.
 - **Date at risk:** `committed` is before today, or no later than today + 7 calendar days (D1).
 - **Spread:** 2 or more accounts.
@@ -392,6 +392,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | D5 | Juno posts each weekday. The owner decided this on 20 October 2026. | The skill file says "on Monday morning", so it must change. |
 | D6 | Keep call 1 only if, in each of 3 runs, it misses none of the 11 demo Escalations and is correct on 5 or more fixtures more than the keyword rule. If not, use `keyword` mode. | The keyword rule already gets all 22 demo quotes correct. |
 | D7 | Add the Module 4 controls: the read count check, the 0-thread stop, the read attempts, the envelope, V7, the monitor, and the North Star line. The owner decided this on 22 October 2026. | The [Module 4 control panel](../04-agentic-workflows/agent-control-panel.md) found that a partial read, an empty read, or a card that does not post gives no error. |
+| D8 | If no reply exists yet, Silent counts from `opened`. In Phase 1, `last reply: missing` is a data gap, not a thread with no reply. The owner decided this on 22 October 2026. | In Phases 2 and 3, a new thread has an empty `last_reply`. The skill file and the answer key have no rule for it. The demo result does not change. |
 
 **D. Open questions.**
 

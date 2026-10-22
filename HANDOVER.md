@@ -34,6 +34,7 @@ The README has the pitch and the author details. It is on `main`.
 - **M3 structure:** the PRD uses the section structure of the course tool `M3 - AI PRD Builder.html`. The tool did not make the text. The PRD sets write to blocked, not to the tool default of confirm, because v1 has no write verb.
 - **M3 rule changes:** PRD decisions D1 to D4 and D6 change M2 rules. The owner approves each one before `risk-radar-skill.md` or `demo-answer-key.md` changes.
 - **M4 pillar:** risk flagging, the Risk radar. Level 2, semi-autonomous, in Phase 3 only. The pattern is ReAct as a fixed prompt chain: the model has no tools, so code runs the loop. The failure mode to watch is silent failure.
+- **Harness lines:** on 22 October 2026, the owner put the New tag, the Not verified line, and the Data as of line in the skill file. The harness writes them, not the model, because the model does not know the previous card, the check results, or the read time.
 - **M4 format:** each field of the tool output is 1 plain paragraph, without bullets, tables, or code blocks. The tool copies the text without changes.
 
 ## Repo setup
@@ -53,7 +54,7 @@ The README has the pitch and the author details. It is on `main`.
 5. When the course gives the official cohort name, put it in the README byline.
 6. Optional: add one few-shot example to the skill file for a Given / When / Then acceptance criterion.
 7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D2, D3, D4, and D6. The owner decided D5 on 20 October 2026, and D1 and D7 on 22 October 2026. The acceptance criteria are the eval of the PRD, so they stay in it.
-8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday.
+8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday. D8 adds the Silent rule for a thread with no reply.
 9. M3: the owner posts the M3 share in #cohort-channel.
 10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.
 11. M4: the owner posts the M4 share in #cohort-channel. The share names the lever that was hardest to specify.

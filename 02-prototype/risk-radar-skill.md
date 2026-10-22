@@ -40,6 +40,10 @@ Use Markdown. Use the sections below in this sequence. The maximum length is 160
    - **Next step:** one action for the PM, in a maximum of 15 words.
 3. **Also watch**: the IDs of other threads with 2 or more signals, in rank sequence, in one line. If there are none, do not show this section.
 4. **Data gaps**: the threads that do not have a field that you must have, in one line. If there are none, do not show this section.
+5. **Harness lines**: the harness adds these lines to the card. Do not write them.
+   - **New**: a tag after the title of a Top risk that the previous card did not have.
+   - **Not verified**: one line with the checks and the fallbacks that failed.
+   - **Data as of**: the last line, with the read time and the run ID.
 
 The card is complete when these conditions are true:
 
