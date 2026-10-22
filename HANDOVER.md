@@ -2,7 +2,7 @@
 
 Read this file before you start work in this repo. Update it at the end of each session.
 
-Last update: 20 October 2026, after the first draft of the M3 AI PRD.
+Last update: 22 October 2026, after the M4 agent control panel.
 
 ## Status
 
@@ -10,8 +10,8 @@ Last update: 20 October 2026, after the first draft of the M3 AI PRD.
 | :- | :- | :- |
 | M1 · Prompting | `01-prompting/skill-file.md` | Done. On `main`. |
 | M2 · Prototype | `02-prototype/prototype.md`, `02-prototype/app/` | Done. On `main`. The public link is in `prototype.md`. The debrief is a first draft. The 100-thread demo is on `main`. It has a stored card from a live run. |
-| M3 · Harness / AI PRD | `03-harness-prd/prd.md` | First draft. On `main`. The owner reviews it. The Lab 1 sketch is outside the repo. |
-| M4 · Agentic workflows | `04-agentic-workflows/agent-control-panel.md` | Not started. Template placeholder. |
+| M3 · Harness / AI PRD | `03-harness-prd/prd.md` | First draft. On `main`. The owner reviews it. D7 adds the M4 controls. The Lab 1 sketch is outside the repo. |
+| M4 · Agentic workflows | `04-agentic-workflows/agent-control-panel.md` | Done. On `main`. The text comes from the course tool `M4 - Agent Control Panel.html`. |
 | M5 · Evals | `05-evals/human-rubric.md` | Not started. Template placeholder. |
 | M6 · Final presentation | `final-presentation.html` | Not started. |
 
@@ -33,6 +33,8 @@ The README has the pitch and the author details. It is on `main`.
 - **M3 scope:** the PRD gives the harness for the M2 risk radar only. On 20 October 2026, the owner decided that Juno posts the card each weekday, not each Monday (PRD decision D5).
 - **M3 structure:** the PRD uses the section structure of the course tool `M3 - AI PRD Builder.html`. The tool did not make the text. The PRD sets write to blocked, not to the tool default of confirm, because v1 has no write verb.
 - **M3 rule changes:** PRD decisions D1 to D4 and D6 change M2 rules. The owner approves each one before `risk-radar-skill.md` or `demo-answer-key.md` changes.
+- **M4 pillar:** risk flagging, the Risk radar. Level 2, semi-autonomous, in Phase 3 only. The pattern is ReAct as a fixed prompt chain: the model has no tools, so code runs the loop. The failure mode to watch is silent failure.
+- **M4 format:** each field of the tool output is 1 plain paragraph, without bullets, tables, or code blocks. The tool copies the text without changes.
 
 ## Repo setup
 
@@ -50,6 +52,10 @@ The README has the pitch and the author details. It is on `main`.
 4. Line 158 of `demo-answer-key.md` says that the Format section does not give the Also watch sequence. This is not true after the change on 16 October 2026. The owner decides if the line changes.
 5. When the course gives the official cohort name, put it in the README byline.
 6. Optional: add one few-shot example to the skill file for a Given / When / Then acceptance criterion.
-7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D1 to D6. The acceptance criteria are the eval of the PRD, so they stay in it.
+7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D1 to D6. The owner approved D7. The acceptance criteria are the eval of the PRD, so they stay in it.
 8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday.
 9. M3: the owner posts the M3 share in #cohort-channel.
+10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.
+11. M4: the owner posts the M4 share in #cohort-channel. The share names the lever that was hardest to specify.
+12. M4: on 22 October 2026, the owner approved the 7 PRD changes from the control panel. They are PRD decision D7, with criteria 20 to 26 and a change to criterion 17. Criteria 21 to 24 and 26 use stubs before Phase 2. Criteria 20 and 25 run in the Phase 3 test environment.
+13. M5: Module 5 builds on the M4 pillar. Read `agent-control-panel.md` before class 5.
