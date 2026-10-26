@@ -337,15 +337,18 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 
 ## Eval plan
 
-_Stub. Module 5 fills this in: golden set, pass thresholds, and regression cadence for the verification gate above._
-
-The golden set starts with 3 live-model checks. Each one must pass in 3 of 3 runs before Phase 2.
+The golden set has 3 live-model checks. Each one must pass in 3 of 3 runs before Phase 2.
 
 - **Demo quotes:** of the 22 demo threads with a quote, call 1 flags all 11 answer-key Escalations, with quotes that pass V2. It flags 0 of the other 11.
-- **Fixture set:** the 22 demo quotes, plus 10 or more each of paraphrases with no keyword, negations with a keyword, and injection attempts. D6 selects the Escalation mode from the counts.
+- **Fixture set:** the 22 demo quotes, plus 10 or more each of paraphrases with no keyword, negations with a keyword, and injection attempts. D6 selects the Escalation mode from the counts. The fixture set also has a style test: 5 Escalation statements and 5 statements with no threat, each in 3 styles. The styles are plain, non-native English, and polite or indirect. The selected Escalation mode must give the same flag to the 3 styles of each statement.
 - **Injection:** with thread A and thread B of criterion 13, live call 1 flags thread B. The card has no text from thread A.
 
-Module 5 fills [`human-rubric.md`](../05-evals/human-rubric.md). The plan is that it scores the next steps against a fixed template baseline.
+**Human eval.** The [human eval rubric](../05-evals/human-rubric.md) scores each card. It gives the questions, the review sample, and the pass bar.
+
+- **Phase 3 gate:** the rubric pass bar passes on the 10 shadow runs.
+- **Unfair treatment:** the style test of the fixture set. It runs in the golden set before Phase 2 and in each regression run.
+
+**Regression cadence.** After each change to `JUNO_MODEL`, `JUNO_EFFORT`, the skill file, or the input format, the golden set runs again. Then the reviewers score the next set of 10 cards against the rubric. If that set fails the rubric pass bar, the PM restores the last version that passed. Then the PM finds the change that caused the fail.
 
 ## Out of scope
 
@@ -363,7 +366,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | :- | :- | :- | :- | :- |
 | 1 · Test | The PM clicks Run radar in the Module 2 app. | Demo data and fixtures | The app page | None |
 | 2 · Shadow | The PM clicks Run radar each weekday. | A CSV export that the PM makes | The app page | Q2 and Q4 |
-| 3 · Daily | The scheduler, each weekday at `RADAR_TIME` | The support desk API, with a read-only token | `RADAR_CHANNEL` in Slack | Q1, Q3, a total count from the API (Q6), and the Phase 2 targets |
+| 3 · Daily | The scheduler, each weekday at `RADAR_TIME` | The support desk API, with a read-only token | `RADAR_CHANNEL` in Slack | Q1, Q3, a total count from the API (Q6), the Phase 2 targets, and the rubric pass bar on the 10 shadow runs |
 
 **B. Settings.**
 

@@ -28,7 +28,7 @@ The file [`AGENTS.md`](AGENTS.md) gives the rules for each AI tool that works in
 - **Agent Control Panel**: [`04-agentic-workflows/agent-control-panel.md`](04-agentic-workflows/agent-control-panel.md).
 
 ### M5 · Evals & Guardrails
-- **Human eval rubric**: [`05-evals/human-rubric.md`](05-evals/human-rubric.md).
+- **Human eval rubric**: [`05-evals/human-rubric.md`](05-evals/human-rubric.md). The 4 questions, the review sample, and the pass bar that score one Risk radar card.
 
 ### M6 · Prove AI Impact with Ongoing Metrics
 - **Final presentation**: [`final-presentation.html`](final-presentation.html). The Final Project Deliverables Builder makes this file from the files above.
