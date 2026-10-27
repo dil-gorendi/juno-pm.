@@ -2,7 +2,7 @@
 
 Read this file before you start work in this repo. Update it at the end of each session.
 
-Last update: 26 October 2026, after the M5 human eval rubric.
+Last update: 27 October 2026, after class 5 and the M5 tool output.
 
 ## Status
 
@@ -12,7 +12,7 @@ Last update: 26 October 2026, after the M5 human eval rubric.
 | M2 · Prototype | `02-prototype/prototype.md`, `02-prototype/app/` | Done. On `main`. The public link is in `prototype.md`. The debrief is a first draft. The 100-thread demo is on `main`. It has a stored card from a live run. |
 | M3 · Harness / AI PRD | `03-harness-prd/prd.md` | First draft. On `main`. The owner reviews it. D7 adds the M4 controls. The Lab 1 sketch is outside the repo. |
 | M4 · Agentic workflows | `04-agentic-workflows/agent-control-panel.md` | Done. On `main`. The text comes from the course tool `M4 - Agent Control Panel.html`. |
-| M5 · Evals | `05-evals/human-rubric.md` | First draft, before class 5. The text is the input for the course tool `M5 - Human Evaluation Rubric.html`. |
+| M5 · Evals | `05-evals/human-rubric.md` | Done. On `main`. The text comes from the course tool `M5 - Human Evaluation Rubric.html`. |
 | M6 · Final presentation | `final-presentation.html` | Not started. |
 
 The README has the pitch and the author details. It is on `main`.
@@ -37,6 +37,8 @@ The README has the pitch and the author details. It is on `main`.
 - **Harness lines:** on 22 October 2026, the owner put the New tag, the Not verified line, and the Data as of line in the skill file. The harness writes them, not the model, because the model does not know the previous card, the check results, or the read time.
 - **M4 format:** each field of the tool output is 1 plain paragraph, without bullets, tables, or code blocks. The tool copies the text without changes.
 - **M5 rubric:** on 26 October 2026, the owner approved 4 choices. The rubric scores the whole Risk radar card, not only the next steps. The support team lead is the second eval reviewer. A set of 10 cards passes with 9 or more correct Escalations and an average of 4 or more on the two scales. The style test in the PRD fixture set is the check for unfair treatment. It replaced a name test, because model call 1 does not see the owner name.
+- **M5 tool output:** on 27 October 2026, the owner approved 3 changes from the course tool. No hallucination has the deal-breaker mark in the table. The pass bar paragraph does not give the deal-breakers. A list under it gives them. The tool has 1 field for the other deal-breakers, so the last 3 deal-breakers are 1 item of the list. The style test name is "PRD fixture set", the same as in the PRD. After a cold review, the owner approved 5 more changes. The pass rule refers to the list. The pass bar gives the unit of each average and says "a failed set". The list defines a key string as in the PRD, and says when the style test runs.
+- **M5 tool:** the course tools are in the LMS, not in the repo. The class 5 notes give the link to the M5 tools. The tool has more fields than the draft: a deal-breaker check box for each question, and a separate field for the other deal-breakers.
 - **M5 links:** the PRD Eval plan links to the rubric and gives the regression cadence. The rubric pass bar on the 10 shadow runs is a Phase 3 gate in the PRD and in the control panel. The M5 pre-read says that the work of Modules 1 to 4 does not change. So only the PRD and the control panel changed, for the links and the gate.
 
 ## Repo setup
@@ -61,6 +63,6 @@ The README has the pitch and the author details. It is on `main`.
 10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.
 11. M4: the owner posts the M4 share in #cohort-channel. The share names the lever that was hardest to specify.
 12. M4: on 22 October 2026, the owner approved the 7 PRD changes from the control panel. They are PRD decision D7, with criteria 20 to 26 and a change to criterion 17. Criteria 21 to 24 and 26 use stubs before Phase 2. Criteria 20 and 25 run in the Phase 3 test environment.
-13. M5: in class 5, put the text of `05-evals/human-rubric.md` in the course tool. Then the owner posts the M5 share in #cohort-channel.
+13. M5: the owner posts the M5 share in #cohort-channel. The share names the part of the rubric that was hardest to describe.
 14. M5: a score of 5 for Next step useful needs whom to ask. The skill file does not ask the model for this. Decide after the first scored set, because the prompt is the first lever to change.
 15. M5: the owner decides if the PRD decisions table gets a D9 for the M5 changes.
