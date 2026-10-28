@@ -16,7 +16,9 @@ _Module 3. Sections from `M3 - AI PRD Builder.html`. The harness for the Juno Ri
 
 **What Juno does:** each weekday morning, Juno posts one card in a private Slack channel. The card shows the 3 open threads with the highest risk. Each item shows its signals and one next step.
 
-**Success measures.** No baseline exists. Phase 2 measures each one over 10 shadow runs.
+**Goal and baseline.** The goal is fewer customer escalations. The goal metric is the number of new Escalation threads in 4 weeks. Without Juno, the baseline is 12 in the 4 weeks to 23 October 2026. Today, the PM uses about 45 minutes each weekday and reads about 30 of the 100 open threads. `ASSUMPTION`: these numbers are estimates from 28 October 2026, not measurements.
+
+**Success measures.** Phase 2 measures each one over 10 shadow runs.
 
 | Measure | Sample | Target |
 | :- | :- | :- |
@@ -392,7 +394,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | D2 | Code writes the Why line from the template in 02 Tools. The 20-word Why limit does not count the quote. The card limit is 180 words. Both limits only warn. | The answer-key Why lines have 27, 24, and 21 words. The demo card has 171 words. |
 | D3 | A next step starts with Ask, Check, or Tell. | The skill file says "a verb such as". A check needs a closed list. |
 | D4 | The last tie-break is the thread ID, sorted as text. | The skill file has none. The demo result does not change. |
-| D5 | Juno posts each weekday. The owner decided this on 20 October 2026. | The skill file says "on Monday morning", so it must change. |
+| D5 | Juno posts each weekday. The owner decided this on 20 October 2026. | The skill file said "on Monday morning". It says "each weekday morning" from 28 October 2026. |
 | D6 | Keep call 1 only if, in each of 3 runs, it misses none of the 11 demo Escalations and is correct on 5 or more fixtures more than the keyword rule. If not, use `keyword` mode. | The keyword rule already gets all 22 demo quotes correct. |
 | D7 | Add the Module 4 controls: the read count check, the 0-thread stop, the read attempts, the envelope, V7, the monitor, and the North Star paragraph. The owner decided this on 22 October 2026. | The [Module 4 control panel](../04-agentic-workflows/agent-control-panel.md) found that a partial read, an empty read, or a card that does not post gives no error. |
 | D8 | If no reply exists yet, Silent counts from `opened`. In Phase 1, `last reply: missing` is a data gap, not a thread with no reply. The owner decided this on 22 October 2026. | In Phases 2 and 3, a new thread has an empty `last_reply`. The skill file and the answer key have no rule for it. The demo result does not change. |
@@ -401,7 +403,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 
 | ID | Question | Owner |
 | :- | :- | :- |
-| Q1 | Which private channel gets the card? Who are its members, and how long does it keep messages? The Module 2 mockup uses `#pm-monday`, a name for a weekly card. | PM |
+| Q1 | Which private channel gets the card? Who are its members, and how long does it keep messages? The Module 2 mockup uses `#pm-monday`, a name for a Monday card. | PM |
 | Q2 | Can customer text go to the model endpoint, after code removes personal data? | Security & Compliance |
 | Q3 | Can Juno have a read-only support desk token, a Slack bot with the 2 scopes in 05, and a service role that can call only `JUNO_MODEL`? Can the monitor have an email sender? Who owns and rotates them? The pod has no capacity this quarter (Engineering Capacity Note). | Security & Compliance, through Priya Nair (VP Engineering) |
 | Q4 | Does the support desk keep a committed date and the accounts for each thread? Which statuses mean open? Is `last_reply` the newest public reply from a RocketShip person? Can the export give the Phase 2 columns? | PM, with the support desk admin |

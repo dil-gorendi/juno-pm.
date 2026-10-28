@@ -2,7 +2,7 @@
 
 Read this file before you start work in this repo. Update it at the end of each session.
 
-Last update: 27 October 2026, after class 5, the M5 tool output, and a full-repo consistency check.
+Last update: 28 October 2026, before class 6.
 
 ## Status
 
@@ -13,7 +13,7 @@ Last update: 27 October 2026, after class 5, the M5 tool output, and a full-repo
 | M3 · Harness / AI PRD | `03-harness-prd/prd.md` | First draft. On `main`. The owner reviews it. D7 adds the M4 controls. The Lab 1 sketch is outside the repo. |
 | M4 · Agentic workflows | `04-agentic-workflows/agent-control-panel.md` | Done. On `main`. The text comes from the course tool `M4 - Agent Control Panel.html`. |
 | M5 · Evals | `05-evals/human-rubric.md` | Done. On `main`. The text comes from the course tool `M5 - Human Evaluation Rubric.html`. |
-| M6 · Final presentation | `final-presentation.html` | Not started. |
+| M6 · Final presentation | `final-presentation.html` | Not started. The builder inputs are ready outside the repo, in the class 6 folder. The class is on 29 October 2026. |
 
 The README has the pitch and the author details. It is on `main`.
 
@@ -40,6 +40,8 @@ The README has the pitch and the author details. It is on `main`.
 - **M5 tool output:** on 27 October 2026, the owner approved 3 changes from the course tool. No hallucination has the deal-breaker mark in the table. The pass bar paragraph does not give the deal-breakers. A list under it gives them. The tool has 1 field for the other deal-breakers, so the last 3 deal-breakers are 1 item of the list. The style test name is "PRD fixture set", the same as in the PRD. After a cold review, the owner approved 5 more changes. The pass rule refers to the list. The pass bar gives the unit of each average and says "a failed set". The list defines a key string as in the PRD, and says when the style test runs.
 - **M5 tool:** the course tools are in the LMS, not in the repo. The class 5 notes give the link to the M5 tools. The tool has more fields than the draft: a deal-breaker check box for each question, and a separate field for the other deal-breakers.
 - **Consistency check:** on 27 October 2026, a full-repo check compared each file with the others. The owner approved 8 fixes. The control panel now gives the V2 repair result of the PRD. The PRD North Star input is the paragraph without its last sentence. The PRD regression cadence has the stop rule of the rubric. The decision lists include D5 and D8.
+- **D5 in the repo:** on 28 October 2026, the owner told the agent to make the weekday card the same in all files. The skill file, `prototype.md`, `README.md`, `package.json`, and the channel topic in `index.html` now say each weekday. The mockup channel name `#pm-monday` does not change, because PRD question Q1 is open. The date "Monday 19 October 2026" in the demo is a date, not a schedule.
+- **M6 baseline:** on 28 October 2026, the owner told the agent to suggest a baseline and put it in the PRD. The goal metric is the number of new Escalation threads in 4 weeks. The baseline is 12. Today, the PM uses about 45 minutes each weekday and reads about 30 of the 100 open threads. The agent proposed the numbers, and the PRD marks them as an `ASSUMPTION`. The target, the review date, and the stop line are only in the M6 builder inputs.
 - **M5 links:** the PRD Eval plan links to the rubric and gives the regression cadence. The rubric pass bar on the 10 shadow runs is a Phase 3 gate in the PRD and in the control panel. The M5 pre-read says that the work of Modules 1 to 4 does not change. So only the PRD and the control panel changed, for the links and the gate.
 
 ## Repo setup
@@ -59,7 +61,7 @@ The README has the pitch and the author details. It is on `main`.
 5. When the course gives the official cohort name, put it in the README byline.
 6. Optional: add one few-shot example to the skill file for a Given / When / Then acceptance criterion.
 7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D2, D3, D4, and D6. The owner decided D5 on 20 October 2026, and D1, D7, and D8 on 22 October 2026. The acceptance criteria are the eval of the PRD, so they stay in it.
-8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday. D8 adds the Silent rule for a thread with no reply. D5 also changes "Monday card" in `README.md` and "Monday risk card" in `02-prototype/prototype.md`.
+8. M3: change `risk-radar-skill.md` for each approved decision. D8 adds the Silent rule for a thread with no reply. D5 is done.
 9. M3: the owner posts the M3 share in #cohort-channel.
 10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.
 11. M4: the owner posts the M4 share in #cohort-channel. The share names the lever that was hardest to specify.
@@ -68,3 +70,4 @@ The README has the pitch and the author details. It is on `main`.
 14. M5: a score of 5 for Next step useful needs whom to ask. The skill file does not ask the model for this. Decide after the first scored set, because the prompt is the first lever to change.
 15. M5: the owner decides if the PRD decisions table gets a D9 for the M5 changes.
 16. M2: the comment on line 20 of `02-prototype/app/server.mjs` says that the server stops first. This is not true. With `maxRetries: 1`, the SDK retries a timeout, so the page stops first, after 120 seconds. The owner decides if the comment changes or if `maxRetries` becomes 0.
+17. M6: in class, use the copy sheet for the builder. Commit `final-presentation.html` at the repo root. Then submit the repo link and the presentation within 7 days of the cohort end.

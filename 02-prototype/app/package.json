@@ -1,7 +1,7 @@
 {
   "name": "juno-risk-radar",
   "version": "1.0.0",
-  "description": "Juno · Risk radar. A one-screen prototype for the Monday risk card.",
+  "description": "Juno · Risk radar. A one-screen prototype for the weekday risk card.",
   "private": true,
   "type": "module",
   "scripts": {

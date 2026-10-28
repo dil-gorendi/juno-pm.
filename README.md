@@ -17,7 +17,7 @@ The file [`AGENTS.md`](AGENTS.md) gives the rules for each AI tool that works in
 
 ### M2 · Prototype
 - **Prototype**: [`02-prototype/prototype.md`](02-prototype/prototype.md). The link, what the prototype shows, and the debrief.
-- **Skill file**: [`02-prototype/risk-radar-skill.md`](02-prototype/risk-radar-skill.md). Juno finds the 3 open threads with the highest risk and writes a Monday card.
+- **Skill file**: [`02-prototype/risk-radar-skill.md`](02-prototype/risk-radar-skill.md). Juno finds the 3 open threads with the highest risk and writes a card each weekday.
 - **Demo data**: [`02-prototype/demo-threads-100.txt`](02-prototype/demo-threads-100.txt). 100 fictional threads for the demo.
 - **Demo answer key**: [`02-prototype/demo-answer-key.md`](02-prototype/demo-answer-key.md). The card that Juno must write for the demo, and a script that checks the data.
 
