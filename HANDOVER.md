@@ -2,7 +2,7 @@
 
 Read this file before you start work in this repo. Update it at the end of each session.
 
-Last update: 27 October 2026, after class 5 and the M5 tool output.
+Last update: 27 October 2026, after class 5, the M5 tool output, and a full-repo consistency check.
 
 ## Status
 
@@ -32,13 +32,14 @@ The README has the pitch and the author details. It is on `main`.
 
 - **M3 scope:** the PRD gives the harness for the M2 risk radar only. On 20 October 2026, the owner decided that Juno posts the card each weekday, not each Monday (PRD decision D5).
 - **M3 structure:** the PRD uses the section structure of the course tool `M3 - AI PRD Builder.html`. The tool did not make the text. The PRD sets write to blocked, not to the tool default of confirm, because v1 has no write verb.
-- **M3 rule changes:** PRD decisions D1 to D4 and D6 change M2 rules. The owner approves each one before `risk-radar-skill.md` or `demo-answer-key.md` changes.
+- **M3 rule changes:** PRD decisions D1 to D6 and D8 change M2 rules. The owner approves each one before `risk-radar-skill.md` or `demo-answer-key.md` changes. The answer key changes only through its generator script outside the repo.
 - **M4 pillar:** risk flagging, the Risk radar. Level 2, semi-autonomous, in Phase 3 only. The pattern is ReAct as a fixed prompt chain: the model has no tools, so code runs the loop. The failure mode to watch is silent failure.
 - **Harness lines:** on 22 October 2026, the owner put the New tag, the Not verified line, and the Data as of line in the skill file. The harness writes them, not the model, because the model does not know the previous card, the check results, or the read time.
 - **M4 format:** each field of the tool output is 1 plain paragraph, without bullets, tables, or code blocks. The tool copies the text without changes.
-- **M5 rubric:** on 26 October 2026, the owner approved 4 choices. The rubric scores the whole Risk radar card, not only the next steps. The support team lead is the second eval reviewer. A set of 10 cards passes with 9 or more correct Escalations and an average of 4 or more on the two scales. The style test in the PRD fixture set is the check for unfair treatment. It replaced a name test, because model call 1 does not see the owner name.
+- **M5 rubric:** on 26 October 2026, the owner approved 4 choices. The rubric scores the whole Risk radar card, not only the next steps. The support team lead is the second eval reviewer. A set of 10 cards passes when 9 or more cards have Yes on Escalation correct. The average on the two scales must also be 4 or more. The style test in the PRD fixture set is the check for unfair treatment. It replaced a name test, because model call 1 does not see the owner name.
 - **M5 tool output:** on 27 October 2026, the owner approved 3 changes from the course tool. No hallucination has the deal-breaker mark in the table. The pass bar paragraph does not give the deal-breakers. A list under it gives them. The tool has 1 field for the other deal-breakers, so the last 3 deal-breakers are 1 item of the list. The style test name is "PRD fixture set", the same as in the PRD. After a cold review, the owner approved 5 more changes. The pass rule refers to the list. The pass bar gives the unit of each average and says "a failed set". The list defines a key string as in the PRD, and says when the style test runs.
 - **M5 tool:** the course tools are in the LMS, not in the repo. The class 5 notes give the link to the M5 tools. The tool has more fields than the draft: a deal-breaker check box for each question, and a separate field for the other deal-breakers.
+- **Consistency check:** on 27 October 2026, a full-repo check compared each file with the others. The owner approved 8 fixes. The control panel now gives the V2 repair result of the PRD. The PRD North Star input is the paragraph without its last sentence. The PRD regression cadence has the stop rule of the rubric. The decision lists include D5 and D8.
 - **M5 links:** the PRD Eval plan links to the rubric and gives the regression cadence. The rubric pass bar on the 10 shadow runs is a Phase 3 gate in the PRD and in the control panel. The M5 pre-read says that the work of Modules 1 to 4 does not change. So only the PRD and the control panel changed, for the links and the gate.
 
 ## Repo setup
@@ -57,8 +58,8 @@ The README has the pitch and the author details. It is on `main`.
 4. Line 158 of `demo-answer-key.md` says that the Format section does not give the Also watch sequence. This is not true after the change on 16 October 2026. The owner decides if the line changes.
 5. When the course gives the official cohort name, put it in the README byline.
 6. Optional: add one few-shot example to the skill file for a Given / When / Then acceptance criterion.
-7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D2, D3, D4, and D6. The owner decided D5 on 20 October 2026, and D1 and D7 on 22 October 2026. The acceptance criteria are the eval of the PRD, so they stay in it.
-8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday. D8 adds the Silent rule for a thread with no reply.
+7. M3: the owner reviews `03-harness-prd/prd.md` and decides on D2, D3, D4, and D6. The owner decided D5 on 20 October 2026, and D1, D7, and D8 on 22 October 2026. The acceptance criteria are the eval of the PRD, so they stay in it.
+8. M3: change `risk-radar-skill.md` for each approved decision. D5 changes "on Monday morning" to each weekday. D8 adds the Silent rule for a thread with no reply. D5 also changes "Monday card" in `README.md` and "Monday risk card" in `02-prototype/prototype.md`.
 9. M3: the owner posts the M3 share in #cohort-channel.
 10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.
 11. M4: the owner posts the M4 share in #cohort-channel. The share names the lever that was hardest to specify.
@@ -66,3 +67,4 @@ The README has the pitch and the author details. It is on `main`.
 13. M5: the owner posts the M5 share in #cohort-channel. The share names the part of the rubric that was hardest to describe.
 14. M5: a score of 5 for Next step useful needs whom to ask. The skill file does not ask the model for this. Decide after the first scored set, because the prompt is the first lever to change.
 15. M5: the owner decides if the PRD decisions table gets a D9 for the M5 changes.
+16. M2: the comment on line 20 of `02-prototype/app/server.mjs` says that the server stops first. This is not true. With `maxRetries: 1`, the SDK retries a timeout, so the page stops first, after 120 seconds. The owner decides if the comment changes or if `maxRetries` becomes 0.

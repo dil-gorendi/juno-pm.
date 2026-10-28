@@ -36,7 +36,7 @@ In Phase 3, Juno runs under its own read-only service token (Q3), not under the 
 
 **Fallback Protocols:**
 
-If a model output fails check V1, V2, or V3, Juno sends 1 repair call with only the failed IDs. If call 1 fails again or has an error, Juno uses the keyword rule, and the card shows "Not verified: Escalation by keyword rule". If call 2 fails again or has an error, the step shows "Next step: not verified. Open the thread." If check V4 fails, Juno posts no card and shows "Radar did not run: check V4 failed". At 300 seconds, Juno posts the card with "Not verified: time limit" if the rank is ready. If the Slack post fails, Juno does not retry. If no card exists at RADAR_TIME + 30 minutes, a separate monitor sends an email to the PM. The email gives the error class, or no_run if no run started.
+If a model output fails check V1, V2, or V3, Juno sends 1 repair call with only the failed IDs. If a quote fails V2 again, that thread gets no Escalation, and Data gaps shows "Escalation quote not verified". If call 1 fails V1 again or has an error, Juno uses the keyword rule, and the card shows "Not verified: Escalation by keyword rule". If call 2 fails again or has an error, the step shows "Next step: not verified. Open the thread." If check V4 fails, Juno posts no card and shows "Radar did not run: check V4 failed". At 300 seconds, Juno posts the card with "Not verified: time limit" if the rank is ready. If the Slack post fails, Juno does not retry. If no card exists at RADAR_TIME + 30 minutes, a separate monitor sends an email to the PM. The email gives the error class, or no_run if no run started.
 
 **Checkpoints:**
 

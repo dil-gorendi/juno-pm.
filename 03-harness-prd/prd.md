@@ -99,7 +99,7 @@ The model sees only this:
 
 - **Call 1:** each thread ID with its 3 newest customer messages, at 450 characters each.
 - **Call 2:** the Top 3 threads, with ID, title, signals and values, owner, committed date, and the verified quote.
-- **Each call and each repair:** the input starts with the North Star paragraph of the [agent control panel](../04-agentic-workflows/agent-control-panel.md) (D7).
+- **Each call and each repair:** the input starts with the North Star paragraph of the [agent control panel](../04-agentic-workflows/agent-control-panel.md), without its last sentence (D7).
 - Before each call, code removes email addresses, phone numbers, URLs, account names, and strings that look like keys. A key string has 20 or more letters and digits, with no space.
 
 Juno does not read these sources:
@@ -333,7 +333,7 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 | 23 | The run log has a card run with 100 threads on the previous weekday, and a stopped run with 0 threads after it. Today has 49 threads, then 50. | The radar runs. | With 49: "Not verified: thread count decreased from 100 to 49". With 50: no V7 note. |
 | 24 | The run log has no count from the last 5 weekdays | The radar runs. | The card shows "Not verified: no previous thread count". |
 | 25 | Phase 3. Weekday A has `post_fail`. Weekday B has no run. Weekday C has a card. | The monitor runs at `RADAR_TIME` + 30 minutes. | Day A: 1 email with `post_fail`. Day B: 1 email with `no_run`. Day C: no email. |
-| 26 | Call 1 and call 2 stubs. Each stub records its input and gives an output that fails V1 on its first answer. | The radar runs. | The input of call 1, call 2, and each of the 2 repairs starts with the North Star paragraph of the agent control panel, character for character. |
+| 26 | Call 1 and call 2 stubs. Each stub records its input and gives an output that fails V1 on its first answer. | The radar runs. | The input of call 1, call 2, and each of the 2 repairs starts with the North Star paragraph of the agent control panel, without its last sentence, character for character. |
 
 ## Eval plan
 
@@ -348,7 +348,7 @@ The golden set has 3 live-model checks. Each one must pass in 3 of 3 runs before
 - **Phase 3 gate:** the rubric pass bar passes on the 10 shadow runs.
 - **Unfair treatment:** the style test of the fixture set. It runs in the golden set before Phase 2 and in each regression run.
 
-**Regression cadence.** After each change to `JUNO_MODEL`, `JUNO_EFFORT`, the skill file, or the input format, the golden set runs again. Then the reviewers score the next set of 10 cards against the rubric. If that set fails the rubric pass bar, the PM restores the last version that passed. Then the PM finds the change that caused the fail.
+**Regression cadence.** After each change to `JUNO_MODEL`, `JUNO_EFFORT`, the skill file, or the input format, the golden set runs again. Then the reviewers score the next set of 10 cards against the rubric. If that set fails the rubric pass bar, the PM restores the last version that passed. Then the PM finds the change that caused the fail. A failed set also stops the scheduled run. Until a fix passes the eval, the PM clicks Run radar each weekday.
 
 ## Out of scope
 
@@ -384,7 +384,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | `RADAR_MODEL_STUB` | Off | A fixture file, in the test environment only |
 | `RADAR_ALERT_TO` | None, required in Phase 3 | The email address of the PM (D7) |
 
-**C. Decisions.** D1 to D4 and D6 change Module 2 rules. The owner approves each one before the skill file or the answer key changes.
+**C. Decisions.** D1 to D6 and D8 change Module 2 rules. The owner approves each one before the skill file or the answer key changes.
 
 | ID | Decision | Reason |
 | :- | :- | :- |
@@ -394,7 +394,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | D4 | The last tie-break is the thread ID, sorted as text. | The skill file has none. The demo result does not change. |
 | D5 | Juno posts each weekday. The owner decided this on 20 October 2026. | The skill file says "on Monday morning", so it must change. |
 | D6 | Keep call 1 only if, in each of 3 runs, it misses none of the 11 demo Escalations and is correct on 5 or more fixtures more than the keyword rule. If not, use `keyword` mode. | The keyword rule already gets all 22 demo quotes correct. |
-| D7 | Add the Module 4 controls: the read count check, the 0-thread stop, the read attempts, the envelope, V7, the monitor, and the North Star line. The owner decided this on 22 October 2026. | The [Module 4 control panel](../04-agentic-workflows/agent-control-panel.md) found that a partial read, an empty read, or a card that does not post gives no error. |
+| D7 | Add the Module 4 controls: the read count check, the 0-thread stop, the read attempts, the envelope, V7, the monitor, and the North Star paragraph. The owner decided this on 22 October 2026. | The [Module 4 control panel](../04-agentic-workflows/agent-control-panel.md) found that a partial read, an empty read, or a card that does not post gives no error. |
 | D8 | If no reply exists yet, Silent counts from `opened`. In Phase 1, `last reply: missing` is a data gap, not a thread with no reply. The owner decided this on 22 October 2026. | In Phases 2 and 3, a new thread has an empty `last_reply`. The skill file and the answer key have no rule for it. The demo result does not change. |
 
 **D. Open questions.**
