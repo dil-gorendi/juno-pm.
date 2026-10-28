@@ -67,9 +67,8 @@ The README has the pitch and the author details. It is on `main`.
 9. M3: the owner posts the M3 share in #cohort-channel.
 10. M3, optional: 4 blind evaluators gave the PRD 8 of 10. Readability is the gap. To get 9, move the build detail to a linked build spec. The build detail is the schemas, the card template, the settings, the parse rules, and the phases. The acceptance criteria stay in the PRD.
 11. M4: the owner posts the M4 share in #cohort-channel. The share names the lever that was hardest to specify.
-12. M4: on 22 October 2026, the owner approved the 7 PRD changes from the control panel. They are PRD decision D7, with criteria 20 to 26 and a change to criterion 17. Criteria 21 to 24 and 26 use stubs before Phase 2. Criteria 20 and 25 run in the Phase 3 test environment.
-13. M5: the owner posts the M5 share in #cohort-channel. The share names the part of the rubric that was hardest to describe.
-14. M5: a score of 5 for Next step useful needs whom to ask. The skill file does not ask the model for this. Decide after the first scored set, because the prompt is the first lever to change.
-15. M5: the owner decides if the PRD decisions table gets a D9 for the M5 changes.
-16. M2: the comment on line 20 of `02-prototype/app/server.mjs` says that the server stops first. This is not true. With `maxRetries: 1`, the SDK retries a timeout, so the page stops first, after 120 seconds. The owner decides if the comment changes or if `maxRetries` becomes 0.
-17. M6: submit the repo link and the presentation link on the Learning Platform, within 7 days of the cohort end. The owner does this task.
+12. M5: the owner posts the M5 share in #cohort-channel. The share names the part of the rubric that was hardest to describe.
+13. M5: a score of 5 for Next step useful needs whom to ask. The skill file does not ask the model for this. Decide after the first scored set, because the prompt is the first lever to change.
+14. M5: the owner decides if the PRD decisions table gets a D9 for the M5 changes.
+15. M2: the comment on line 20 of `02-prototype/app/server.mjs` says that the server stops first. This is not true. With `maxRetries: 1`, the SDK retries a timeout, so the page stops first, after 120 seconds. The owner decides if the comment changes or if `maxRetries` becomes 0.
+16. M6: submit the repo link and the presentation link on the Learning Platform, within 7 days of the cohort end. The owner does this task.
