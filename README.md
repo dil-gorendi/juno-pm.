@@ -31,7 +31,7 @@ The file [`AGENTS.md`](AGENTS.md) gives the rules for each AI tool that works in
 - **Human eval rubric**: [`05-evals/human-rubric.md`](05-evals/human-rubric.md). The 4 questions, the review sample, and the pass bar that score one Risk radar card.
 
 ### M6 · Prove AI Impact with Ongoing Metrics
-- **Final presentation**: [`final-presentation.html`](final-presentation.html). The Final Project Deliverables Builder makes this file from the files above.
+- **Final presentation**: [`final-presentation.html`](final-presentation.html). The Final Project Deliverables Builder makes this file from the files above. The public link is [dil-gorendi.github.io/juno-pm./final-presentation.html](https://dil-gorendi.github.io/juno-pm./final-presentation.html).
 
 ## Repo structure
 
