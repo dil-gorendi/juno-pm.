@@ -2,7 +2,7 @@
 
 Read this file before you start work in this repo. Update it at the end of each session.
 
-Last update: 28 October 2026, before class 6.
+Last update: 28 October 2026. The final presentation is done before class 6 on 29 October 2026.
 
 ## Status
 
