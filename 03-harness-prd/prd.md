@@ -14,7 +14,7 @@ _Module 3. Sections from `M3 - AI PRD Builder.html`. The harness for the Juno Ri
 - One failure reaches many accounts. A user lost hours to a CSV export crash (Raw Signals, Artifact 1). Initech ($120k ARR) asked about export limits, apparently after a Pearson Co contact told it that large exports can fail (Sales Pipeline Snapshot).
 - `ASSUMPTION`: no person reads all open support threads each day.
 
-**What Juno does:** each weekday morning, Juno posts one card in a private Slack channel. The card shows the 3 open threads with the highest risk. Each item shows its signals and one next step.
+**What Juno does:** each weekday morning, Juno posts one card in a private Slack channel. The card shows up to 3 open threads with the highest risk. Each item shows its signals and one next step.
 
 **Goal and baseline.** The goal is fewer customer escalations. The goal metric is the number of new Escalation threads in 4 weeks. Without Juno, the baseline is 12 in the 4 weeks to 23 October 2026. Today, the PM uses about 45 minutes each weekday and reads about 30 of the 100 open threads. `ASSUMPTION`: these numbers are estimates from 28 October 2026, not measurements.
 
@@ -181,7 +181,7 @@ Not verified: {check IDs, fallbacks, and V7 counts}   <- only if one failed
 Data as of {HH:MM} {RADAR_TZ}. Run {run_id}.
 ```
 
-The Why parts are `Silent (last reply 2 Oct)`, `No owner`, `Date at risk (committed 23 Oct)`, `Spread (2 accounts)`, and `Escalation ("{quote}")`. The card shows the number of accounts, not their names. Before a Slack post, code changes `&`, `<`, and `>` to `&amp;`, `&lt;`, and `&gt;` ([Slack text rules](https://docs.slack.dev/messaging/formatting-message-text)).
+The Why parts are `Silent (last reply 2 Oct)`, `No owner (owner: none)`, `Date at risk (committed 23 Oct)`, `Spread (2 accounts)`, and `Escalation ("{quote}")`. The card shows the number of accounts, not their names. Before a Slack post, code changes `&`, `<`, and `>` to `&amp;`, `&lt;`, and `&gt;` ([Slack text rules](https://docs.slack.dev/messaging/formatting-message-text)).
 
 **Deliberate omissions**
 
@@ -311,7 +311,7 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 | # | Given | When | Then |
 | :- | :- | :- | :- |
 | 1 | The demo data. Call 1 stub: the answer-key Escalations. Call 2 stub: 15-word steps. | The radar runs. | Top risks: RS-3080, RS-3045, RS-3071. Also watch: RS-3026, RS-3086, RS-3052, RS-3038, RS-3048. Data gaps: RS-3037, RS-3057, RS-3100. |
-| 2 | The same input as criterion 1 | The radar runs. | Each signal agrees with [section 1 of the answer key](../02-prototype/demo-answer-key.md#1-signals-for-each-thread). The RS-3071 Why line is "Silent (last reply 25 Sep). No owner. Date at risk (committed 20 Oct). Spread (2 accounts)." V5 gives no warning. |
+| 2 | The same input as criterion 1 | The radar runs. | Each signal agrees with [section 1 of the answer key](../02-prototype/demo-answer-key.md#1-signals-for-each-thread). The RS-3071 Why line is "Silent (last reply 25 Sep). No owner (owner: none). Date at risk (committed 20 Oct). Spread (2 accounts)." V5 gives no warning. |
 | 3 | Today is Monday 19 Oct 2026. The last reply is Wednesday 14 Oct, or Friday 16 Oct. Or no reply exists, and the thread opened Tuesday 13 Oct. | Code calculates Silent. | True (3 weekdays), false (1 weekday), and true (4 weekdays). |
 | 4 | Today is Monday 19 Oct 2026. The committed date is 13 Oct, 19 Oct, 26 Oct, or 27 Oct. | Code calculates Date at risk. | True, true, true, and false. |
 | 5 | A Module 2 file with no `Today:` line | The radar runs. | "Radar did not run: no date of today", the fields that it must have, and 0 model calls. |
@@ -335,7 +335,7 @@ Juno never drops an output silently. The "Not verified:" line lists each check t
 | 23 | The run log has a card run with 100 threads on the previous weekday, and a stopped run with 0 threads after it. Today has 49 threads, then 50. | The radar runs. | With 49: "Not verified: thread count decreased from 100 to 49". With 50: no V7 note. |
 | 24 | The run log has no count from the last 5 weekdays | The radar runs. | The card shows "Not verified: no previous thread count". |
 | 25 | Phase 3. Weekday A has `post_fail`. Weekday B has no run. Weekday C has a card. | The monitor runs at `RADAR_TIME` + 30 minutes. | Day A: 1 email with `post_fail`. Day B: 1 email with `no_run`. Day C: no email. |
-| 26 | Call 1 and call 2 stubs. Each stub records its input and gives an output that fails V1 on its first answer. | The radar runs. | The input of call 1, call 2, and each of the 2 repairs starts with the North Star paragraph of the agent control panel, without its last sentence, character for character. |
+| 26 | Call 1 and call 2 stubs. Each stub records its input and gives an output that fails V1 on its first answer. | The radar runs. | The input of call 1, call 2, and each of the 2 repairs starts with the North Star paragraph of the agent control panel. This text is the paragraph without its last sentence, character for character. |
 
 ## Eval plan
 
@@ -367,7 +367,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | Phase | Run | Source | Card goes to | Gate |
 | :- | :- | :- | :- | :- |
 | 1 · Test | The PM clicks Run radar in the Module 2 app. | Demo data and fixtures | The app page | None |
-| 2 · Shadow | The PM clicks Run radar each weekday. | A CSV export that the PM makes | The app page | Q2 and Q4 |
+| 2 · Shadow | The PM clicks Run radar each weekday. | A CSV export that the PM makes | The app page | The release gate, the 3 live-model checks, Q2, and Q4 |
 | 3 · Daily | The scheduler, each weekday at `RADAR_TIME` | The support desk API, with a read-only token | `RADAR_CHANNEL` in Slack | Q1, Q3, a total count from the API (Q6), the Phase 2 targets, and the rubric pass bar on the 10 shadow runs |
 
 **B. Settings.**
@@ -395,7 +395,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | D3 | A next step starts with Ask, Check, or Tell. | The skill file says "a verb such as". A check needs a closed list. |
 | D4 | The last tie-break is the thread ID, sorted as text. | The skill file has none. The demo result does not change. |
 | D5 | Juno posts each weekday. The owner decided this on 20 October 2026. | The skill file said "on Monday morning". It says "each weekday morning" from 28 October 2026. |
-| D6 | Keep call 1 only if, in each of 3 runs, it misses none of the 11 demo Escalations and is correct on 5 or more fixtures more than the keyword rule. If not, use `keyword` mode. | The keyword rule already gets all 22 demo quotes correct. |
+| D6 | Keep call 1 only if it misses none of the 11 demo Escalations in each of 3 runs. In each of the 3 runs, it must also be correct on 5 or more fixtures more than the keyword rule. If not, use `keyword` mode. | The keyword rule already gets all 22 demo quotes correct. |
 | D7 | Add the Module 4 controls: the read count check, the 0-thread stop, the read attempts, the envelope, V7, the monitor, and the North Star paragraph. The owner decided this on 22 October 2026. | The [Module 4 control panel](../04-agentic-workflows/agent-control-panel.md) found that a partial read, an empty read, or a card that does not post gives no error. |
 | D8 | If no reply exists yet, Silent counts from `opened`. In Phase 1, `last reply: missing` is a data gap, not a thread with no reply. The owner decided this on 22 October 2026. | In Phases 2 and 3, a new thread has an empty `last_reply`. The skill file and the answer key have no rule for it. The demo result does not change. |
 
@@ -405,7 +405,7 @@ Any capability not in the verb list above or the monitor, and any action tiered 
 | :- | :- | :- |
 | Q1 | Which private channel gets the card? Who are its members, and how long does it keep messages? The Module 2 mockup uses `#pm-monday`, a name for a Monday card. | PM |
 | Q2 | Can customer text go to the model endpoint, after code removes personal data? | Security & Compliance |
-| Q3 | Can Juno have a read-only support desk token, a Slack bot with the 2 scopes in 05, and a service role that can call only `JUNO_MODEL`? Can the monitor have an email sender? Who owns and rotates them? The pod has no capacity this quarter (Engineering Capacity Note). | Security & Compliance, through Priya Nair (VP Engineering) |
+| Q3 | Can Juno have a read-only support desk token and a Slack bot with the 2 scopes in 05? Can it have a service role that can call only `JUNO_MODEL`? Can the monitor have an email sender? Who owns and rotates them? The pod has no capacity this quarter (Engineering Capacity Note). | Security & Compliance, through Priya Nair (VP Engineering) |
 | Q4 | Does the support desk keep a committed date and the accounts for each thread? Which statuses mean open? Is `last_reply` the newest public reply from a RocketShip person? Can the export give the Phase 2 columns? | PM, with the support desk admin |
 | Q5 | Does v2 add a renewal signal from CRM? Pearson Co renews in 45 days. | PM |
 | Q6 | Does the support desk API give a total count for a read (D7)? | PM, with the support desk admin |

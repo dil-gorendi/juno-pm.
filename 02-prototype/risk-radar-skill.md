@@ -27,7 +27,7 @@ Each thread in the inputs has these fields: ID, title, link, open date, date of 
 - For each reason, give the field and the value that is its source. Quote the customer words exactly. Do not guess the impact in money or in users.
 - For each thread, write one next step for the PM. Use a verb such as "ask", "check", or "tell". Do not tell the PM to change the priority of a thread.
 - **Refusal:** If the inputs do not give the date of today, do not rank. If no thread has a last reply date, do not rank. In both cases, write the fields that you must have. Then stop.
-- If no thread has a signal, write "No open thread has a risk signal this week." Then stop.
+- If no thread has a signal, write "No open thread has a risk signal today." Then stop.
 
 ## Format
 
